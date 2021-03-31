@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hobby_doge/core/constants/app_constants.dart';
+import 'package:hobby_doge/core/constants/navigation_constants.dart';
 import 'package:hobby_doge/core/init/navigation/navgiation_service.dart';
 import 'package:hobby_doge/core/init/navigation/navigation_route.dart';
 import 'core/init/lang/language_manager.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       title: 'Material App',
+      initialRoute: NavigationConstants.SPLASH_VIEW,
     );
   }
 }
