@@ -12,7 +12,7 @@ class NavigationService {
     await navigatorKey.currentState.pushNamed(path, arguments: object);
   }
 
-  void navigatorToPageRemoveOld(String path, Object object) {
+  Future<void> navigatorToPageRemoveOld(String path, Object object) async {
     navigatorKey.currentState
         .pushNamedAndRemoveUntil(path, (route) => false, arguments: object);
   }

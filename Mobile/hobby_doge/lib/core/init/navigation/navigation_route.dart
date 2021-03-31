@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hobby_doge/core/constants/navigation_constants.dart';
+import 'package:hobby_doge/view/splash_screen/view/splash_view.dart';
 import 'package:hobby_doge/view/test/view/test_view.dart';
 
 class NavigationRoute {
@@ -12,7 +13,8 @@ class NavigationRoute {
     switch (args.name) {
       case NavigationConstants.TEST_VIEW:
         return MaterialPageRoute(builder: (context) => TestEkrani());
-        break;
+      case NavigationConstants.SPLASH_VIEW:
+        return MaterialPageRoute(builder: (context) => SplashView());
       default:
         return MaterialPageRoute(
             builder: (context) => Scaffold(
@@ -20,4 +22,5 @@ class NavigationRoute {
                 ));
     }
   }
+
 }
