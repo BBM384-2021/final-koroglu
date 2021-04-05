@@ -4,6 +4,7 @@ import 'package:hobby_doge/core/constants/app_constants.dart';
 import 'package:hobby_doge/core/constants/navigation_constants.dart';
 import 'package:hobby_doge/core/init/navigation/navgiation_service.dart';
 import 'package:hobby_doge/core/init/navigation/navigation_route.dart';
+import 'package:hobby_doge/core/init/theme/app_theme_light.dart';
 import 'core/init/lang/language_manager.dart';
 import 'core/extensions/localization_extension.dart';
 
@@ -24,12 +25,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: AppThemeLight.instance.theme,
       navigatorKey: NavigationService.instance.navigatorKey,
       onGenerateRoute: NavigationRoute.instance.generateRoute,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      title: 'Material App',
+      title: 'HobbyDoge',
       initialRoute: NavigationConstants.SPLASH_VIEW,
     );
   }
