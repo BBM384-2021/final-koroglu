@@ -48,7 +48,17 @@ class _SplashViewState extends BaseState<SplashView>
             alignment: Alignment.center,
             children: [
               buildLogoBackground(),
-              buildLogo()
+              buildLogo(),
+              Positioned(
+                  top: dynamicHeight(0.6),
+                  bottom: 0,
+                  child: Text(
+                    "HobbyDoge",
+                    style: TextStyle(
+                        fontSize: dynamicHeight(0.05),
+                        color: AppColorScheme.instance.greenLight3,
+                        fontWeight: FontWeight.w600),
+                  ))
             ],
           ),
         ));
@@ -56,29 +66,29 @@ class _SplashViewState extends BaseState<SplashView>
 
   Positioned buildLogoBackground() {
     return Positioned(
-              top: 0,
-              bottom: dynamicHeight(0.25),
-              child: AnimatedBuilder(
-                animation: _controller,
-                builder: (BuildContext context, Widget child) {
-                  return Container(
-                    width: dynamicWidth(_controller.value * 40),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColorScheme.instance.greenLight1),
-                  );
-                },
-              ),
-            );
+      top: 0,
+      bottom: dynamicHeight(0.25),
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (BuildContext context, Widget child) {
+          return Container(
+            width: dynamicWidth(_controller.value * 40),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColorScheme.instance.greenLight1),
+          );
+        },
+      ),
+    );
   }
 
   Positioned buildLogo() {
     return Positioned(
-              top: 0,
-              bottom: dynamicHeight(0.2),
-              right: dynamicWidth(0.25),
-              left: dynamicWidth(0.25),
-              child: Image.asset("assets/images/logo.png"),
-            );
+      top: 0,
+      bottom: dynamicHeight(0.2),
+      right: dynamicWidth(0.25),
+      left: dynamicWidth(0.25),
+      child: Image.asset("assets/images/logo.png"),
+    );
   }
 }
