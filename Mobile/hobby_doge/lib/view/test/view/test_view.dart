@@ -19,10 +19,14 @@ class _TestEkraniState extends BaseState<TestEkrani> {
         model.setContext(context);
         model.init();
       },
-      onPageBuilder: (context, value) => Container(
-        height: dynamicHeight(0.1),
-        child: Center(
-          child: Text("Deneme"),
+      onPageBuilder: (context, value) => Scaffold(
+        body: Container(
+          child: Center(
+            child: Text(
+              "Denemere yazıları deneme bir iki ",
+              style: TextStyle(fontSize: 50),
+            ),
+          ),
         ),
       ),
     );
