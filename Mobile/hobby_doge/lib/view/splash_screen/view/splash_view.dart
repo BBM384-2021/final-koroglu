@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hobby_doge/core/base/state/base_state.dart';
 import 'package:hobby_doge/core/base/view/base_view.dart';
+import 'package:hobby_doge/core/constants/navigation_constants.dart';
+import 'package:hobby_doge/core/init/navigation/navigation_service.dart';
 import 'package:hobby_doge/core/init/theme/color_scheme.dart';
 import 'package:hobby_doge/view/splash_screen/viewmodel/splash_view_model.dart';
 
@@ -23,8 +25,15 @@ class _SplashViewState extends BaseState<SplashView>
     Future.delayed(Duration(seconds: 5), () {
       // 5s over, navigate to a new page
       _controller.forward();
-      Navigator.pushNamed(context, "/test");
+      NavigationService.instance
+          .navigatorToPageRemoveOld(path: NavigationConstants.TEST_VIEW);
     });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -49,19 +58,23 @@ class _SplashViewState extends BaseState<SplashView>
             children: [
               buildLogoBackground(),
               buildLogo(),
-              Positioned(
-                  top: dynamicHeight(0.6),
-                  bottom: 0,
-                  child: Text(
-                    "HobbyDoge",
-                    style: TextStyle(
-                        fontSize: dynamicHeight(0.05),
-                        color: AppColorScheme.instance.greenLight3,
-                        fontWeight: FontWeight.w600),
-                  ))
+              buildTitle()
             ],
           ),
         ));
+  }
+
+  Positioned buildTitle() {
+    return Positioned(
+                top: dynamicHeight(0.6),
+                bottom: 0,
+                child: Text(
+                  "HobbyDoge",
+                  style: TextStyle(
+                      fontSize: dynamicHeight(0.05),
+                      color: AppColorScheme.instance.greenLight3,
+                      fontWeight: FontWeight.w600),
+                ));
   }
 
   Positioned buildLogoBackground() {
