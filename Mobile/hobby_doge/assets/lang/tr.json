@@ -1,3 +1,5 @@
 {
-    "welcome":"Hoşgeldiniz"
+    "welcome":"Hoşgeldiniz",
+    "pleaseCheckInternet":"Lütfen internet bağlantınızı kontrol ediniz.",
+    "tryAgain":"Tekrar Dene"
 }

@@ -1,3 +1,5 @@
 {
-    "welcome":"Welcome"
+    "welcome":"Welcome",
+    "pleaseCheckInternet":"Please check your internet connection.",
+    "tryAgain":"Try Again"
 }
