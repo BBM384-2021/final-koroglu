@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hobby_doge/core/base/state/base_state.dart';
-import 'package:hobby_doge/core/base/view/base_view.dart';
-import 'package:hobby_doge/view/test/viewmodel/test_viewmodel.dart';
+
+import '../../../core/base/state/base_state.dart';
+import '../../../core/base/view/base_view.dart';
+import '../viewmodel/test_viewmodel.dart';
 
 class TestEkrani extends StatefulWidget {
   TestEkrani({Key key}) : super(key: key);

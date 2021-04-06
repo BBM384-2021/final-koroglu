@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hobby_doge/core/constants/app_constants.dart';
-
+import '../../constants/app_constants.dart';
 import 'app_theme.dart';
 
 class AppThemeLight extends AppTheme {

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hobby_doge/core/constants/navigation_constants.dart';
-import 'package:hobby_doge/view/splash_screen/view/splash_view.dart';
-import 'package:hobby_doge/view/test/view/test_view.dart';
+
+import '../../../view/splash_screen/view/splash_view.dart';
+import '../../../view/test/view/test_view.dart';
+import '../../constants/navigation_constants.dart';
 
 class NavigationRoute {
   static NavigationRoute _instance = NavigationRoute._init();
