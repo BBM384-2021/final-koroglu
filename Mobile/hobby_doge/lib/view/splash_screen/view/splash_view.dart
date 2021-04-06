@@ -1,10 +1,14 @@
+import 'dart:async';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:hobby_doge/core/base/state/base_state.dart';
-import 'package:hobby_doge/core/base/view/base_view.dart';
-import 'package:hobby_doge/core/constants/navigation_constants.dart';
-import 'package:hobby_doge/core/init/navigation/navigation_service.dart';
-import 'package:hobby_doge/core/init/theme/color_scheme.dart';
-import 'package:hobby_doge/view/splash_screen/viewmodel/splash_view_model.dart';
+
+import '../../../core/base/state/base_state.dart';
+import '../../../core/base/view/base_view.dart';
+import '../../../core/constants/navigation_constants.dart';
+import '../../../core/init/navigation/navigation_service.dart';
+import '../../../core/init/theme/color_scheme.dart';
+import '../viewmodel/splash_view_model.dart';
 
 class SplashView extends StatefulWidget {
   SplashView({Key key}) : super(key: key);
@@ -16,23 +20,32 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends BaseState<SplashView>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
+  Animation _animation;
+  StreamSubscription _connectivityListener;
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-        value: 0.01, vsync: this, duration: Duration(seconds: 10));
 
-    Future.delayed(Duration(seconds: 5), () {
-      // 5s over, navigate to a new page
-      _controller.forward();
-      NavigationService.instance
-          .navigatorToPageRemoveOld(path: NavigationConstants.TEST_VIEW);
+    _controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 2));
+    _animation = Tween<double>(begin: 0.40, end: 1).animate(_controller);
+    _connectivityListener =
+        Connectivity().onConnectivityChanged.listen((event) {
+      if (event != ConnectivityResult.none) {
+        _controller.forward();
+        Future.delayed(Duration(seconds: 1), () {
+          print("hadi");
+          NavigationService.instance
+              .navigatorToPageRemoveOld(path: NavigationConstants.TEST_VIEW);
+        });
+      }
     });
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _connectivityListener.cancel();
     super.dispose();
   }
 
@@ -45,36 +58,32 @@ class _SplashViewState extends BaseState<SplashView>
         model.init();
       },
       onPageBuilder: (BuildContext context, SplashViewModel viewModel) =>
-          buildScaffold(),
+          buildScaffold(viewModel),
     );
   }
 
-  Scaffold buildScaffold() {
+  Scaffold buildScaffold(SplashViewModel viewModel) {
     return Scaffold(
         backgroundColor: AppColorScheme.instance.greenLight0,
         body: Center(
           child: Stack(
             alignment: Alignment.center,
-            children: [
-              buildLogoBackground(),
-              buildLogo(),
-              buildTitle()
-            ],
+            children: [buildLogoBackground(), buildLogo(), buildTitle()],
           ),
         ));
   }
 
   Positioned buildTitle() {
     return Positioned(
-                top: dynamicHeight(0.6),
-                bottom: 0,
-                child: Text(
-                  "HobbyDoge",
-                  style: TextStyle(
-                      fontSize: dynamicHeight(0.05),
-                      color: AppColorScheme.instance.greenLight3,
-                      fontWeight: FontWeight.w600),
-                ));
+        top: dynamicHeight(0.6),
+        bottom: 0,
+        child: Text(
+          "HobbyDoge",
+          style: TextStyle(
+              fontSize: dynamicHeight(0.05),
+              color: AppColorScheme.instance.greenLight3,
+              fontWeight: FontWeight.w600),
+        ));
   }
 
   Positioned buildLogoBackground() {
@@ -85,7 +94,7 @@ class _SplashViewState extends BaseState<SplashView>
         animation: _controller,
         builder: (BuildContext context, Widget child) {
           return Container(
-            width: dynamicWidth(_controller.value * 40),
+            width: dynamicWidth(_animation.value),
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: AppColorScheme.instance.greenLight1),

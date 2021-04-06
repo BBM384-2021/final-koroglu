@@ -2,5 +2,7 @@
 
 abstract class  LocaleKeys {
   static const welcome = 'welcome';
+  static const pleaseCheckInternet = 'pleaseCheckInternet';
+  static const tryAgain = 'tryAgain';
 
 }

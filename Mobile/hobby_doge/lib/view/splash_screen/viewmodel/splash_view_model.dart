@@ -1,6 +1,6 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:hobby_doge/core/base/model/base_view_model.dart';
+import '../../../core/base/model/base_view_model.dart';
 import 'package:mobx/mobx.dart';
 part 'splash_view_model.g.dart';
 
@@ -13,8 +13,10 @@ abstract class _SplashViewModelBase with Store, BaseViewModel {
   @observable
   var connectivityResult;
 
+  void updateConnectivity() async {}
+
   @override
-  void init() async {
-    connectivityResult = await (Connectivity().checkConnectivity());
+  void init() {
+    //updateConnectivity();
   }
 }
