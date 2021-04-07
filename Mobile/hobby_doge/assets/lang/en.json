@@ -1,5 +1,11 @@
 {
     "welcome":"Welcome",
     "pleaseCheckInternet":"Please check your internet connection.",
-    "tryAgain":"Try Again"
+    "tryAgain":"Try Again",
+    "welcomeScreen":{
+        "signup":"Sign Up Now",
+        "login":"Log In",
+        "welcomeToHobbyDoge":"Welcome To HobbyDoge",
+        "timeForHobbyDoge":"Time For HobbyDoge"
+    }
 }

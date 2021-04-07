@@ -1,5 +1,11 @@
 {
     "welcome":"Hoşgeldiniz",
     "pleaseCheckInternet":"Lütfen internet bağlantınızı kontrol ediniz.",
-    "tryAgain":"Tekrar Dene"
+    "tryAgain":"Tekrar Dene",
+    "welcomeScreen":{
+        "signup":"Şimdi Üye Ol",
+        "login":"Giriş Yap",
+        "welcomeToHobbyDoge":"HobbyDoge'ye Hoşgeldin",
+        "timeForHobbyDoge":"HobbyDoge Zamanı"
+    }
 }
