@@ -9,5 +9,15 @@ abstract class  LocaleKeys {
   static const welcomeScreen_welcomeToHobbyDoge = 'welcomeScreen.welcomeToHobbyDoge';
   static const welcomeScreen_timeForHobbyDoge = 'welcomeScreen.timeForHobbyDoge';
   static const welcomeScreen = 'welcomeScreen';
+  static const loginScreen_welcomeAgain = 'loginScreen.welcomeAgain';
+  static const loginScreen_timeForHobbyDoge = 'loginScreen.timeForHobbyDoge';
+  static const loginScreen_signup = 'loginScreen.signup';
+  static const loginScreen_login = 'loginScreen.login';
+  static const loginScreen_dontYouHaveAccount = 'loginScreen.dontYouHaveAccount';
+  static const loginScreen_forgotPassword = 'loginScreen.forgotPassword';
+  static const loginScreen_email = 'loginScreen.email';
+  static const loginScreen_password = 'loginScreen.password';
+  static const loginScreen_invalidEmail = 'loginScreen.invalidEmail';
+  static const loginScreen = 'loginScreen';
 
 }
