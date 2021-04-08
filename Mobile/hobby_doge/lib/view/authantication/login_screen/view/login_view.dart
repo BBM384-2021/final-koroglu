@@ -77,8 +77,7 @@ class LoginView extends StatelessWidget {
                         fontSize: context.height * 0.02),
                   ),
                   onPressed: () {
-                    NavigationService.instance
-                        .navigateToPage(path: "/register");
+                    NavigationService.instance.navigateToPage(path: "/signup");
                   },
                 )
               ],
