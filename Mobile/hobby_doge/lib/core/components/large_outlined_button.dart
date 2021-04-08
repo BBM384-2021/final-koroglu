@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../extensions/context_extension.dart';
-import '../extensions/localization_extension.dart';
+import '../extensions/string_extension.dart';
 import '../init/theme/color_scheme.dart';
 
 class LargeOutlinedButton extends StatelessWidget {
