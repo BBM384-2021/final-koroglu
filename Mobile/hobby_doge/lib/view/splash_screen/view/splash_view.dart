@@ -27,16 +27,15 @@ class _SplashViewState extends BaseState<SplashView>
     super.initState();
 
     _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 2));
-    _animation = Tween<double>(begin: 0.40, end: 1).animate(_controller);
+        AnimationController(vsync: this, duration: Duration(seconds: 1));
+    _animation = Tween<double>(begin: 0.40, end: 1.5).animate(_controller);
     _connectivityListener =
         Connectivity().onConnectivityChanged.listen((event) {
       if (event != ConnectivityResult.none) {
         _controller.forward();
         Future.delayed(Duration(seconds: 1), () {
-          print("hadi");
           NavigationService.instance
-              .navigatorToPageRemoveOld(path: NavigationConstants.TEST_VIEW);
+              .navigatorToPageRemoveOld(path: NavigationConstants.WELCOME_VIEW);
         });
       }
     });
@@ -111,7 +110,7 @@ class _SplashViewState extends BaseState<SplashView>
       bottom: dynamicHeight(0.2),
       right: dynamicWidth(0.25),
       left: dynamicWidth(0.25),
-      child: Image.asset("assets/images/logo.png"),
+      child: Image.asset("assets/images/logo_png.png"),
     );
   }
 }
