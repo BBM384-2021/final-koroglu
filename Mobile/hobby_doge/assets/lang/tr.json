@@ -7,5 +7,18 @@
         "login":"Giriş Yap",
         "welcomeToHobbyDoge":"HobbyDoge'ye Hoşgeldin",
         "timeForHobbyDoge":"HobbyDoge Zamanı"
+    },
+    "loginScreen":{
+        "welcomeAgain":"Tekrar Hoşgeldin!",
+        "timeForHobbyDoge":"HobbyDoge Zamanı",
+        "signup":"Kayıt Ol",
+        "login":"Giriş Yap",
+        "dontYouHaveAccount":"Hesabın mı yok?",
+        "forgotPassword":"Şifreni mi unuttun?",
+        "email":"Email",
+        "password":"Parola",
+        "invalidEmail":"Lütfen geçerli bir email giriniz"
+
+
     }
 }

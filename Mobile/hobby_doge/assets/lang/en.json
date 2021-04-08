@@ -7,5 +7,17 @@
         "login":"Log In",
         "welcomeToHobbyDoge":"Welcome To HobbyDoge",
         "timeForHobbyDoge":"Time For HobbyDoge"
+    },
+    "loginScreen":{
+        "welcomeAgain":"Welcome Again!",
+        "timeForHobbyDoge":"Time For HobbyDoge",
+        "signup":"Sign Up",
+        "login":"Log In",
+        "dontYouHaveAccount":"Don't have an account?",
+        "forgotPassword":"Forgot password?",
+        "email":"Email",
+        "password":"Password",
+        "invalidEmail":"Please enter a valid email"
+
     }
 }
