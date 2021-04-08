@@ -1,7 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 
-import '../extensions/localization_extension.dart';
+import '../extensions/string_extension.dart';
 import '../init/lang/locale_keys.g.dart';
 
 Widget connectivitySnackBar(BuildContext context) {
