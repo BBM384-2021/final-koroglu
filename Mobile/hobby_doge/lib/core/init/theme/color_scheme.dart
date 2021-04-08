@@ -14,4 +14,9 @@ class AppColorScheme {
   final Color greenLight2 = Color(0xff6AC88F);
   final Color greenLight3 = Color(0xff45BA73);
   final Color greenLight4 = Color(0xff26342B);
+
+  final Color grey = Color(0xff495A5F);
+  final Color darkerGrey = Color(0xff26342B);
+  final Color lightGrey = Color(0xff667E85);
+  final Color veryLightGrey = Color(0xffFAFAFA);
 }
