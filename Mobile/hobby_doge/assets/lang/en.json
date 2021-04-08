@@ -17,7 +17,35 @@
         "forgotPassword":"Forgot password?",
         "email":"Email",
         "password":"Password",
-        "invalidEmail":"Please enter a valid email"
+        "invalidEmail":"Please enter a valid email."
+
+    },
+    "signUpScreen":{
+        "createYourAccount":"Create Your Account",
+        "signup":"Sign Up",
+        "login":"Log In",
+        "email":"Email",
+        "password":"Password",
+        "invalidEmail":"Please enter a valid email.",
+        "name":"Name",
+        "surname":"Surname",
+        "alreadyHaveAccount":"Already Have An Account?",
+        "next":"Next",
+        "username":"Username",
+        "firstPageSubTitle":"Name And Surname",
+        "firstPageStep":"(Step 1/4)",
+        "secondPageSubTitle":"Username And Email",
+        "secondPageStep":"(Step 2/4)",
+
+        "thirdPageSubTitle":"Password (At Least 6 Characters)",
+        "thirdPageStep":"(Step 3/4)",
+
+        "confirmPassword":"Confirm Password",
+        "sendCode":"Send Verification Code",
+        "fieldRequired":"This field is required.",
+        "tooShortPassword":"Password is too short. At least 6 characters.",
+        "passwordsNotMatched":"Passwords not matched"
+
 
     }
 }

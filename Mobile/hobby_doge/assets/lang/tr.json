@@ -18,7 +18,31 @@
         "email":"Email",
         "password":"Parola",
         "invalidEmail":"Lütfen geçerli bir email giriniz"
+    },
+    "signUpScreen":{
+        "createYourAccount":"Hesap Oluştur",
+        "signup":"Kayıt Ol",
+        "login":"Giriş Yap",
+        "email":"Email",
+        "password":"Parola",
+        "name":"İsim",
+        "surname":"Soyisim",
+        "alreadyHaveAccount":"Zaten üye misin?",
+        "next":"İleri",
+        "username":"Kullanıcı Adı",
+        "firstPageSubTitle":"İsim Ve Soyisim",
+        "firstPageStep":"(Adım 1/4)",
+        "secondPageSubTitle":"Kullanıcı Adı Ve Email",
+        "secondPageStep":"(Adım 2/4)",
 
+        "thirdPageSubTitle":"Parola (En Az 6 Karakter)",
+        "thirdPageStep":"(Adım 3/4)",
 
+        "confirmPassword":"Parolayı Doğrula",
+        "sendCode":"Onay Kodu Gönder",
+        "fieldRequired":"Bu alan boş bırakılamaz.",
+        "tooShortPassword":"Parola çok kısa. En az 6 karakter olmalı.",
+        "passwordsNotMatched":"Parolalar eşleşmiyor."
+
+        }
     }
-}

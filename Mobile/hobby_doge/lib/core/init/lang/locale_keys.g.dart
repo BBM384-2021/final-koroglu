@@ -19,5 +19,28 @@ abstract class  LocaleKeys {
   static const loginScreen_password = 'loginScreen.password';
   static const loginScreen_invalidEmail = 'loginScreen.invalidEmail';
   static const loginScreen = 'loginScreen';
+  static const signUpScreen_createYourAccount = 'signUpScreen.createYourAccount';
+  static const signUpScreen_signup = 'signUpScreen.signup';
+  static const signUpScreen_login = 'signUpScreen.login';
+  static const signUpScreen_email = 'signUpScreen.email';
+  static const signUpScreen_password = 'signUpScreen.password';
+  static const signUpScreen_invalidEmail = 'signUpScreen.invalidEmail';
+  static const signUpScreen_name = 'signUpScreen.name';
+  static const signUpScreen_surname = 'signUpScreen.surname';
+  static const signUpScreen_alreadyHaveAccount = 'signUpScreen.alreadyHaveAccount';
+  static const signUpScreen_next = 'signUpScreen.next';
+  static const signUpScreen_username = 'signUpScreen.username';
+  static const signUpScreen_firstPageSubTitle = 'signUpScreen.firstPageSubTitle';
+  static const signUpScreen_firstPageStep = 'signUpScreen.firstPageStep';
+  static const signUpScreen_secondPageSubTitle = 'signUpScreen.secondPageSubTitle';
+  static const signUpScreen_secondPageStep = 'signUpScreen.secondPageStep';
+  static const signUpScreen_thirdPageSubTitle = 'signUpScreen.thirdPageSubTitle';
+  static const signUpScreen_thirdPageStep = 'signUpScreen.thirdPageStep';
+  static const signUpScreen_confirmPassword = 'signUpScreen.confirmPassword';
+  static const signUpScreen_sendCode = 'signUpScreen.sendCode';
+  static const signUpScreen_fieldRequired = 'signUpScreen.fieldRequired';
+  static const signUpScreen_tooShortPassword = 'signUpScreen.tooShortPassword';
+  static const signUpScreen_passwordsNotMatched = 'signUpScreen.passwordsNotMatched';
+  static const signUpScreen = 'signUpScreen';
 
 }
