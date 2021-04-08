@@ -11,7 +11,8 @@ class CustomPasswordTextField extends StatelessWidget {
       @required this.text,
       @required this.isHiddenChange,
       @required this.isHidden,
-      @required this.textController, this.validator})
+      @required this.textController,
+      this.validator})
       : super(key: key);
   final text;
   final isHiddenChange;
@@ -23,6 +24,7 @@ class CustomPasswordTextField extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.width * 0.1),
       child: TextFormField(
+        controller: textController,
         validator: validator,
         obscureText: isHidden,
         cursorColor: AppColorScheme.instance.grey,
@@ -42,7 +44,7 @@ class CustomPasswordTextField extends StatelessWidget {
           ),
           fillColor: AppColorScheme.instance.veryLightGrey,
           filled: true,
-          labelText: LocaleKeys.loginScreen_password.locale,
+          labelText: text,
           floatingLabelBehavior: FloatingLabelBehavior.auto,
           labelStyle: TextStyle(
               color: AppColorScheme.instance.lightGrey,
