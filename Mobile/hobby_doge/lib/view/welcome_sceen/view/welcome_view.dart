@@ -4,7 +4,7 @@ import '../../../core/base/view/base_view.dart';
 import '../../../core/components/large_outlined_button.dart';
 import '../../../core/components/logo_svg.dart';
 import '../../../core/extensions/context_extension.dart';
-import '../../../core/extensions/localization_extension.dart';
+import '../../../core/extensions/string_extension.dart';
 import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../core/init/theme/color_scheme.dart';
@@ -28,6 +28,8 @@ class WelcomeView extends StatelessWidget {
 
   Scaffold buildScaffold(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

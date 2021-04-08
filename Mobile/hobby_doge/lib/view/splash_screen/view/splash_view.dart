@@ -64,6 +64,7 @@ class _SplashViewState extends BaseState<SplashView>
 
   Scaffold buildScaffold(SplashViewModel viewModel) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: AppColorScheme.instance.greenLight0,
         body: Center(
           child: Stack(
