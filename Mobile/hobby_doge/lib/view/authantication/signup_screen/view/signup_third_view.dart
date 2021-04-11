@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hobby_doge/core/base/view/base_view.dart';
-import 'package:hobby_doge/core/components/common_text_field.dart';
 import 'package:hobby_doge/core/components/large_outlined_button.dart';
 import 'package:hobby_doge/core/components/password_text_field.dart';
 import 'package:hobby_doge/core/init/lang/locale_keys.g.dart';
