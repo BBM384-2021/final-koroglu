@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hobby_doge/view/authantication/signup_screen/view/signup_first_view.dart';
+import 'package:hobby_doge/view/authantication/signup_screen/view/signup_fourth_view.dart';
 import 'package:hobby_doge/view/authantication/signup_screen/view/signup_second_view.dart';
 import 'package:hobby_doge/view/authantication/signup_screen/view/signup_third_view.dart';
 
@@ -31,6 +32,8 @@ class NavigationRoute {
         return MaterialPageRoute(builder: (context) => SignUpSecondView());
       case NavigationConstants.SIGNUP__THIRD_VIEW:
         return MaterialPageRoute(builder: (context) => SignUpThirdView());
+      case NavigationConstants.SIGNUP__FOURTH_VIEW:
+        return MaterialPageRoute(builder: (context) => SignUpFourthView());
       default:
         return MaterialPageRoute(
             builder: (context) => Scaffold(
