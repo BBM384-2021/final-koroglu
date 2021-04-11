@@ -89,7 +89,8 @@ class WelcomeView extends StatelessWidget {
             LargeOutlinedButton(
               text: LocaleKeys.welcomeScreen_signup.locale,
               onPressed: () {
-                NavigationService.instance.navigateToPage(path: "/signup");
+                NavigationService.instance
+                    .navigateToPage(path: "/signup_first_view");
               },
             ),
             Spacer(flex: 1),
