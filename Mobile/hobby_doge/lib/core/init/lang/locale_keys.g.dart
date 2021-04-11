@@ -41,6 +41,12 @@ abstract class  LocaleKeys {
   static const signUpScreen_fieldRequired = 'signUpScreen.fieldRequired';
   static const signUpScreen_tooShortPassword = 'signUpScreen.tooShortPassword';
   static const signUpScreen_passwordsNotMatched = 'signUpScreen.passwordsNotMatched';
+  static const signUpScreen_verificationCodePage_verificationCode = 'signUpScreen.verificationCodePage.verificationCode';
+  static const signUpScreen_verificationCodePage_verificationCodeSubTitle = 'signUpScreen.verificationCodePage.verificationCodeSubTitle';
+  static const signUpScreen_verificationCodePage_signUp = 'signUpScreen.verificationCodePage.signUp';
+  static const signUpScreen_verificationCodePage_termsExplenation = 'signUpScreen.verificationCodePage.termsExplenation';
+  static const signUpScreen_verificationCodePage_termsLink = 'signUpScreen.verificationCodePage.termsLink';
+  static const signUpScreen_verificationCodePage = 'signUpScreen.verificationCodePage';
   static const signUpScreen = 'signUpScreen';
 
 }
