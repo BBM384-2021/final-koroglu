@@ -1,15 +1,15 @@
 {
-    "welcome":"Hoşgeldiniz",
+    "welcome":"Hoş Geldiniz",
     "pleaseCheckInternet":"Lütfen internet bağlantınızı kontrol ediniz.",
     "tryAgain":"Tekrar Dene",
     "welcomeScreen":{
         "signup":"Şimdi Üye Ol",
         "login":"Giriş Yap",
-        "welcomeToHobbyDoge":"HobbyDoge'ye Hoşgeldin",
+        "welcomeToHobbyDoge":"HobbyDoge'ye Hoş Geldin",
         "timeForHobbyDoge":"HobbyDoge Zamanı"
     },
     "loginScreen":{
-        "welcomeAgain":"Tekrar Hoşgeldin!",
+        "welcomeAgain":"Tekrar Hoş Geldin!",
         "timeForHobbyDoge":"HobbyDoge Zamanı",
         "signup":"Kayıt Ol",
         "login":"Giriş Yap",
@@ -42,7 +42,14 @@
         "sendCode":"Onay Kodu Gönder",
         "fieldRequired":"Bu alan boş bırakılamaz.",
         "tooShortPassword":"Parola çok kısa. En az 6 karakter olmalı.",
-        "passwordsNotMatched":"Parolalar eşleşmiyor."
+        "passwordsNotMatched":"Parolalar eşleşmiyor.",
 
+        "verificationCodePage":{
+            "verificationCode":"Doğrulama Kodu",
+            "verificationCodeSubTitle":"Lütfen email adresinize gönderdiğimiz doğrulama kodunu giriniz.",
+            "signUp":"Kayıt Ol",
+            "termsExplenation":"Kayıt olarak şunları kabul etmiş oluyorsunuz",
+            "termsLink":"Kullanım Şartları ve Gizlilik Politikası"
+        }
         }
     }

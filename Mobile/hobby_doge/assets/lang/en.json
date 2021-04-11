@@ -44,7 +44,15 @@
         "sendCode":"Send Verification Code",
         "fieldRequired":"This field is required.",
         "tooShortPassword":"Password is too short. At least 6 characters.",
-        "passwordsNotMatched":"Passwords not matched"
+        "passwordsNotMatched":"Passwords not matched",
+
+        "verificationCodePage":{
+            "verificationCode":"Verification Code",
+            "verificationCodeSubTitle":"Please enter the verification code we sent to your email address.",
+            "signUp":"Sign Up",
+            "termsExplenation":"By signing up, you agree to our",
+            "termsLink":"Terms & Privacy Policy"
+        }
 
 
     }
