@@ -77,7 +77,8 @@ class LoginView extends StatelessWidget {
                         fontSize: context.height * 0.02),
                   ),
                   onPressed: () {
-                    NavigationService.instance.navigateToPage(path: "/signup");
+                    NavigationService.instance
+                        .navigateToPage(path: "/signup_first_view");
                   },
                 )
               ],
@@ -131,7 +132,7 @@ class LoginView extends StatelessWidget {
   Observer buildPasswordField(LoginViewModel viewmodel) {
     return Observer(
       builder: (_) => CustomPasswordTextField(
-        text: LocaleKeys.loginScreen_password,
+        text: LocaleKeys.loginScreen_password.locale,
         isHidden: viewmodel.isHidden,
         isHiddenChange: viewmodel.isHiddenChange,
         textController: viewmodel.passwordController,
