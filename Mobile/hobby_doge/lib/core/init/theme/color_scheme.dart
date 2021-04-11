@@ -18,5 +18,6 @@ class AppColorScheme {
   final Color grey = Color(0xff495A5F);
   final Color darkerGrey = Color(0xff26342B);
   final Color lightGrey = Color(0xff667E85);
+  final Color boxBorderLightGrey = Color(0xffD6DBD8);
   final Color veryLightGrey = Color(0xffFAFAFA);
 }
