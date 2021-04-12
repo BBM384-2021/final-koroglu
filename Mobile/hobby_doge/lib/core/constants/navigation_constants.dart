@@ -7,4 +7,9 @@ class NavigationConstants {
   static const SIGNUP__SECOND_VIEW = "/signup_second_view";
   static const SIGNUP__THIRD_VIEW = "/signup_third_view";
   static const SIGNUP__FOURTH_VIEW = "/signup_fourth_view";
+  static const FORGOT_PASSWORD_EMAIL_VIEW = "/forgot_password_email_view";
+  static const FORGOT_PASSWORD_ENTER_CODE_VIEW =
+      "/forgot_password_enter_code_view";
+  static const FORGOT_PASSWORD_SET_PASSWORD_VIEW =
+      "/forgot_password_set_password_view";
 }

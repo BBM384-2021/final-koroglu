@@ -51,5 +51,25 @@
             "termsExplenation":"Kayıt olarak şunları kabul etmiş oluyorsunuz",
             "termsLink":"Kullanım Şartları ve Gizlilik Politikası"
         }
+        },
+    "forgotPassword":{
+        "resetPasswordView":{
+            "resetPassword":"Parolayı Sıfırla",
+        "resetPasswordSubTitle":"Yeni Parola Oluştur.",
+        "newPassword":"Yeni Parola",
+        "confirmNewPassword":"Yeni Parolayı Doğrula ",
+        "subTitleAboutPassword":"Yeni Parola (En Az 6 Karakter)"
+        },
+        "sendCodeToEmailView":{
+            "resetPassword":"Parolayı Sıfırla",
+            "resetPasswordSubTitle":"Parolayı sıfırlayabilmen için email adresine bir kod göndereceğiz.",
+            "email":"Email",
+            "sendResetCode":"Sıfırlama Kodunu Gönder"
+        },
+        "enterResetCode":{
+            "resetCode":"Sıfırlama Kodu",
+            "resetCodeExplenation":"Eğer girdiğin email adresi kayıtlı ise sıfırlama kodu gönderildi.",
+            "resetPassword":"Parolayı Sıfırla"
         }
+    }
     }

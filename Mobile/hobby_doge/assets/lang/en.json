@@ -55,5 +55,25 @@
         }
 
 
+    },
+    "forgotPassword":{
+        "resetPasswordView":{
+            "resetPassword":"Parolayı Değiştir",
+        "resetPasswordSubTitle":"Create your new password.",
+        "newPassword":"New Password",
+        "confirmNewPassword":"Confirm New Password",
+        "subTitleAboutPassword":"Password (At Least 6 Characters)"
+        },
+        "sendCodeToEmailView":{
+            "resetPassword":"Reset Password",
+            "resetPasswordSubTitle":"An email with the reset code will be sent to you.",
+            "email":"Email",
+            "sendResetCode":"Send Reset Code"
+        },
+        "enterResetCode":{
+            "resetCode":"Reset Code",
+            "resetCodeExplenation":"Please enter the reset code we sent to your email address.",
+            "resetPassword":"Reset Password"
+        }
     }
 }

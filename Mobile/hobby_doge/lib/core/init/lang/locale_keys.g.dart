@@ -48,5 +48,21 @@ abstract class  LocaleKeys {
   static const signUpScreen_verificationCodePage_termsLink = 'signUpScreen.verificationCodePage.termsLink';
   static const signUpScreen_verificationCodePage = 'signUpScreen.verificationCodePage';
   static const signUpScreen = 'signUpScreen';
+  static const forgotPassword_resetPasswordView_resetPassword = 'forgotPassword.resetPasswordView.resetPassword';
+  static const forgotPassword_resetPasswordView_resetPasswordSubTitle = 'forgotPassword.resetPasswordView.resetPasswordSubTitle';
+  static const forgotPassword_resetPasswordView_newPassword = 'forgotPassword.resetPasswordView.newPassword';
+  static const forgotPassword_resetPasswordView_confirmNewPassword = 'forgotPassword.resetPasswordView.confirmNewPassword';
+  static const forgotPassword_resetPasswordView_subTitleAboutPassword = 'forgotPassword.resetPasswordView.subTitleAboutPassword';
+  static const forgotPassword_resetPasswordView = 'forgotPassword.resetPasswordView';
+  static const forgotPassword_sendCodeToEmailView_resetPassword = 'forgotPassword.sendCodeToEmailView.resetPassword';
+  static const forgotPassword_sendCodeToEmailView_resetPasswordSubTitle = 'forgotPassword.sendCodeToEmailView.resetPasswordSubTitle';
+  static const forgotPassword_sendCodeToEmailView_email = 'forgotPassword.sendCodeToEmailView.email';
+  static const forgotPassword_sendCodeToEmailView_sendResetCode = 'forgotPassword.sendCodeToEmailView.sendResetCode';
+  static const forgotPassword_sendCodeToEmailView = 'forgotPassword.sendCodeToEmailView';
+  static const forgotPassword_enterResetCode_resetCode = 'forgotPassword.enterResetCode.resetCode';
+  static const forgotPassword_enterResetCode_resetCodeExplenation = 'forgotPassword.enterResetCode.resetCodeExplenation';
+  static const forgotPassword_enterResetCode_resetPassword = 'forgotPassword.enterResetCode.resetPassword';
+  static const forgotPassword_enterResetCode = 'forgotPassword.enterResetCode';
+  static const forgotPassword = 'forgotPassword';
 
 }

@@ -95,7 +95,10 @@ class LoginView extends StatelessWidget {
       alignment: Alignment.centerRight,
       width: context.width * 0.8,
       child: TextButton(
-          onPressed: () {},
+          onPressed: () {
+            NavigationService.instance
+                .navigateToPage(path: "/forgot_password_email_view");
+          },
           child: Text(
             LocaleKeys.loginScreen_forgotPassword.locale,
             style: TextStyle(color: AppColorScheme.instance.greenLight2),
