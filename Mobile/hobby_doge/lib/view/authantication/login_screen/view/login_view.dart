@@ -32,7 +32,7 @@ class LoginView extends StatelessWidget {
         body: Center(
           child: Column(
             children: [
-              Spacer(flex: 4),
+              Spacer(flex: 3),
               buildTitles(context),
               Spacer(flex: 1),
               buildTextFields(context, viewmodel),
@@ -49,8 +49,9 @@ class LoginView extends StatelessWidget {
   Expanded buildLoginRegisterButtons(
       BuildContext context, LoginViewModel viewmodel) {
     return Expanded(
-      flex: 2,
+      flex: 3,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           LargeOutlinedButton(
               text: LocaleKeys.loginScreen_login.locale,
@@ -89,32 +90,35 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  Expanded buildForgotPasswordButton(BuildContext context) {
-    return Expanded(
-        child: Container(
-      alignment: Alignment.centerRight,
-      width: context.width * 0.8,
-      child: TextButton(
-          onPressed: () {
-            NavigationService.instance
-                .navigateToPage(path: "/forgot_password_email_view");
-          },
-          child: Text(
-            LocaleKeys.loginScreen_forgotPassword.locale,
-            style: TextStyle(color: AppColorScheme.instance.greenLight2),
-          )),
-    ));
+  Padding buildForgotPasswordButton(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: context.height * 0.03),
+      child: Expanded(
+          child: Container(
+        alignment: Alignment.centerRight,
+        width: context.width * 0.8,
+        child: TextButton(
+            onPressed: () {
+              NavigationService.instance
+                  .navigateToPage(path: "/forgot_password_email_view");
+            },
+            child: Text(
+              LocaleKeys.loginScreen_forgotPassword.locale,
+              style: TextStyle(color: AppColorScheme.instance.greenLight2),
+            )),
+      )),
+    );
   }
 
   Expanded buildTextFields(BuildContext context, LoginViewModel viewmodel) {
     return Expanded(
-      flex: 3,
+      flex: 5,
       child: Form(
           key: viewmodel.formState,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               buildEmailField(viewmodel),
-              Spacer(flex: 1),
               buildPasswordField(viewmodel),
             ],
           )),

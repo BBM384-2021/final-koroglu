@@ -70,15 +70,13 @@ class SignUpThirdView extends StatelessWidget {
 
   Expanded buildTextFields(BuildContext context, SignUpViewModel viewmodel) {
     return Expanded(
-      flex: 4,
+      flex: 6,
       child: Form(
           key: viewmodel.formState,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(flex: 4, child: buildPasswordField(viewmodel)),
-              Spacer(
-                flex: 1,
-              ),
               Expanded(flex: 4, child: buildConfirmPasswordField(viewmodel)),
             ],
           )),
@@ -87,7 +85,7 @@ class SignUpThirdView extends StatelessWidget {
 
   Expanded buildTitles(BuildContext context) {
     return Expanded(
-        flex: 2,
+        flex: 3,
         child: Column(
           children: [
             buildMainTitle(context),

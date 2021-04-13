@@ -43,7 +43,7 @@
         "fieldRequired":"Bu alan boş bırakılamaz.",
         "tooShortPassword":"Parola çok kısa. En az 6 karakter olmalı.",
         "passwordsNotMatched":"Parolalar eşleşmiyor.",
-
+        "invalidEmail":"Lütfen geçerli bir email giriniz",
         "verificationCodePage":{
             "verificationCode":"Doğrulama Kodu",
             "verificationCodeSubTitle":"Lütfen email adresinize gönderdiğimiz doğrulama kodunu giriniz.",

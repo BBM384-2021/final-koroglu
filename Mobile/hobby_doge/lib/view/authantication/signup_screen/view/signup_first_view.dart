@@ -103,13 +103,13 @@ class SignUpFirstView extends StatelessWidget {
 
   Expanded buildTextFields(BuildContext context, SignUpViewModel viewmodel) {
     return Expanded(
-      flex: 4,
+      flex: 6,
       child: Form(
           key: viewmodel.formState,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Container(child: buildNameField(viewmodel)),
-              Spacer(flex: 1),
+              buildNameField(viewmodel),
               buildSurnameField(viewmodel),
             ],
           )),
@@ -140,7 +140,7 @@ class SignUpFirstView extends StatelessWidget {
 
   Expanded buildTitles(BuildContext context) {
     return Expanded(
-        flex: 2,
+        flex: 3,
         child: Column(
           children: [
             buildMainTitle(context),

@@ -44,7 +44,7 @@ Scaffold buildScaffold(BuildContext context, SignUpViewModel viewmodel) {
               onPressed: () {}),
           Spacer(flex: 1),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: buildTermsStrings(context),
           ),
           Spacer(flex: 5)
