@@ -14,8 +14,22 @@ abstract class _SplashViewModelBase with Store, BaseViewModel {
 
   void updateConnectivity() async {}
 
+  @observable
+  double heightWeightValue;
+
+  @observable
+  double animationBorderRadius;
+
+  @action
+  void updateAnimation() {
+    animationBorderRadius = 0;
+    heightWeightValue = 1;
+  }
+
   @override
   void init() {
+    heightWeightValue = 0;
+    animationBorderRadius = 100;
     //updateConnectivity();
   }
 }

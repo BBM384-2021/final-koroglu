@@ -25,10 +25,59 @@ mixin _$SplashViewModel on _SplashViewModelBase, Store {
     });
   }
 
+  final _$heightWeightValueAtom =
+      Atom(name: '_SplashViewModelBase.heightWeightValue');
+
+  @override
+  double get heightWeightValue {
+    _$heightWeightValueAtom.reportRead();
+    return super.heightWeightValue;
+  }
+
+  @override
+  set heightWeightValue(double value) {
+    _$heightWeightValueAtom.reportWrite(value, super.heightWeightValue, () {
+      super.heightWeightValue = value;
+    });
+  }
+
+  final _$animationBorderRadiusAtom =
+      Atom(name: '_SplashViewModelBase.animationBorderRadius');
+
+  @override
+  double get animationBorderRadius {
+    _$animationBorderRadiusAtom.reportRead();
+    return super.animationBorderRadius;
+  }
+
+  @override
+  set animationBorderRadius(double value) {
+    _$animationBorderRadiusAtom.reportWrite(value, super.animationBorderRadius,
+        () {
+      super.animationBorderRadius = value;
+    });
+  }
+
+  final _$_SplashViewModelBaseActionController =
+      ActionController(name: '_SplashViewModelBase');
+
+  @override
+  void updateAnimation() {
+    final _$actionInfo = _$_SplashViewModelBaseActionController.startAction(
+        name: '_SplashViewModelBase.updateAnimation');
+    try {
+      return super.updateAnimation();
+    } finally {
+      _$_SplashViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
-connectivityResult: ${connectivityResult}
+connectivityResult: ${connectivityResult},
+heightWeightValue: ${heightWeightValue},
+animationBorderRadius: ${animationBorderRadius}
     ''';
   }
 }

@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hobby_doge/core/components/darker_background_logo_svg.dart';
+import 'package:hobby_doge/core/components/logo_svg.dart';
 
 import '../../../core/base/state/base_state.dart';
 import '../../../core/base/view/base_view.dart';
@@ -19,20 +22,16 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends BaseState<SplashView>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation _animation;
+  SplashViewModel viewModel = SplashViewModel();
   StreamSubscription _connectivityListener;
   @override
   void initState() {
     super.initState();
 
-    _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 1));
-    _animation = Tween<double>(begin: 0.40, end: 1.5).animate(_controller);
     _connectivityListener =
         Connectivity().onConnectivityChanged.listen((event) {
       if (event != ConnectivityResult.none) {
-        _controller.forward();
+        viewModel.updateAnimation();
         Future.delayed(Duration(seconds: 1), () {
           NavigationService.instance
               .navigatorToPageRemoveOld(path: NavigationConstants.WELCOME_VIEW);
@@ -43,7 +42,6 @@ class _SplashViewState extends BaseState<SplashView>
 
   @override
   void dispose() {
-    _controller.dispose();
     _connectivityListener.cancel();
     super.dispose();
   }
@@ -51,66 +49,52 @@ class _SplashViewState extends BaseState<SplashView>
   @override
   Widget build(BuildContext context) {
     return BaseView<SplashViewModel>(
-      viewModel: SplashViewModel(),
+      viewModel: viewModel,
       onModelReady: (model) {
         model.setContext(context);
         model.init();
       },
       onPageBuilder: (BuildContext context, SplashViewModel viewModel) =>
-          buildScaffold(viewModel),
+          Observer(builder: (_) => buildScaffold(viewModel)),
     );
   }
 
   Scaffold buildScaffold(SplashViewModel viewModel) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: AppColorScheme.instance.greenLight0,
-        body: Center(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [buildLogoBackground(), buildLogo(), buildTitle()],
-          ),
-        ));
-  }
-
-  Positioned buildTitle() {
-    return Positioned(
-        top: dynamicHeight(0.6),
-        bottom: 0,
-        child: Text(
-          "HobbyDoge",
-          style: TextStyle(
-              fontSize: dynamicHeight(0.05),
-              color: AppColorScheme.instance.greenLight3,
-              fontWeight: FontWeight.w600),
-        ));
-  }
-
-  Positioned buildLogoBackground() {
-    return Positioned(
-      top: 0,
-      bottom: dynamicHeight(0.25),
-      child: AnimatedBuilder(
-        animation: _controller,
-        builder: (BuildContext context, Widget child) {
-          return Container(
-            width: dynamicWidth(_animation.value),
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColorScheme.instance.greenLight1),
-          );
-        },
+      resizeToAvoidBottomInset: false,
+      backgroundColor: AppColorScheme.instance.greenLight0,
+      body: Center(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            AnimatedContainer(
+              height: dynamicHeight(viewModel.heightWeightValue),
+              width: dynamicHeight(viewModel.heightWeightValue),
+              duration: Duration(seconds: 1),
+              curve: Curves.fastOutSlowIn,
+              decoration: BoxDecoration(
+                  color: AppColorScheme.instance.greenLight1,
+                  borderRadius:
+                      BorderRadius.circular(viewModel.animationBorderRadius)),
+            ),
+            DarkerBackgroundLogoSvg(
+              height: dynamicHeight(0.2),
+            ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              height: dynamicHeight(0.5),
+              width: dynamicWidth(1),
+              child: Text(
+                "HobbyDoge",
+                style: TextStyle(
+                    fontSize: dynamicHeight(0.05),
+                    color: AppColorScheme.instance.greenLight3,
+                    fontWeight: FontWeight.w600),
+              ),
+            )
+          ],
+        ),
       ),
-    );
-  }
-
-  Positioned buildLogo() {
-    return Positioned(
-      top: 0,
-      bottom: dynamicHeight(0.2),
-      right: dynamicWidth(0.25),
-      left: dynamicWidth(0.25),
-      child: Image.asset("assets/images/logo_png.png"),
     );
   }
 }
