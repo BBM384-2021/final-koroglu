@@ -6,11 +6,11 @@ import 'package:hobby_doge/view/authantication/signup_screen/view/signup_first_v
 import 'package:hobby_doge/view/authantication/signup_screen/view/signup_fourth_view.dart';
 import 'package:hobby_doge/view/authantication/signup_screen/view/signup_second_view.dart';
 import 'package:hobby_doge/view/authantication/signup_screen/view/signup_third_view.dart';
+import 'package:hobby_doge/view/welcome_screen/view/welcome_view.dart';
 
 import '../../../view/authantication/login_screen/view/login_view.dart';
 import '../../../view/splash_screen/view/splash_view.dart';
 import '../../../view/test/view/test_view.dart';
-import '../../../view/welcome_sceen/view/welcome_view.dart';
 import '../../constants/navigation_constants.dart';
 
 class NavigationRoute {
