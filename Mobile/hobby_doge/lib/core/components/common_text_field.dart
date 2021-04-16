@@ -15,6 +15,7 @@ class CommonTextField extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           horizontal: context.width * 0.1, vertical: context.height * 0.001),
       child: TextFormField(
+        controller: textController,
         validator: validator,
         cursorColor: AppColorScheme.instance.grey,
         style: TextStyle(
