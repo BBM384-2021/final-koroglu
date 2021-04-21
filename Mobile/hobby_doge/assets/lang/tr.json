@@ -17,7 +17,9 @@
         "forgotPassword":"Şifreni mi unuttun?",
         "email":"Email",
         "password":"Parola",
-        "invalidEmail":"Lütfen geçerli bir email giriniz"
+        "invalidEmail":"Lütfen geçerli bir email giriniz",
+        "invalidLogin":"Girdiğin email ve parola kayıtlarımızla eşleşmedi. Lütfen kontrol edip tekrar deneyiniz."
+        
     },
     "signUpScreen":{
         "createYourAccount":"Hesap Oluştur",

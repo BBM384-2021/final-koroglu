@@ -18,6 +18,7 @@ abstract class  LocaleKeys {
   static const loginScreen_email = 'loginScreen.email';
   static const loginScreen_password = 'loginScreen.password';
   static const loginScreen_invalidEmail = 'loginScreen.invalidEmail';
+  static const loginScreen_invalidLogin = 'loginScreen.invalidLogin';
   static const loginScreen = 'loginScreen';
   static const signUpScreen_createYourAccount = 'signUpScreen.createYourAccount';
   static const signUpScreen_signup = 'signUpScreen.signup';

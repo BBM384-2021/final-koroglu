@@ -17,7 +17,9 @@
         "forgotPassword":"Forgot password?",
         "email":"Email",
         "password":"Password",
-        "invalidEmail":"Please enter a valid email."
+        "invalidEmail":"Please enter a valid email.",
+        "invalidLogin":"The email and password you entered did not match our records. Please double-check and try again."
+
 
     },
     "signUpScreen":{

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../extensions/context_extension.dart';
-import '../extensions/string_extension.dart';
-import '../init/lang/locale_keys.g.dart';
 import '../init/theme/color_scheme.dart';
 
 class CustomPasswordTextField extends StatelessWidget {

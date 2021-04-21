@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hobby_doge/core/base/model/base_view_model.dart';
+import '../../../../core/base/model/base_view_model.dart';
 import 'package:mobx/mobx.dart';
 part 'forgot_password_view_model.g.dart';
 

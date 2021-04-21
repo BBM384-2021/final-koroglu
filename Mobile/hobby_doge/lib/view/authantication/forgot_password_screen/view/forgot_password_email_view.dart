@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hobby_doge/core/constants/navigation_constants.dart';
-import 'package:hobby_doge/core/init/navigation/navigation_service.dart';
+import '../../../../core/constants/navigation_constants.dart';
+import '../../../../core/init/navigation/navigation_service.dart';
 
 import '../../../../core/base/view/base_view.dart';
 import '../../../../core/components/common_text_field.dart';
