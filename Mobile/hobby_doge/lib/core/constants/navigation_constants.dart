@@ -12,4 +12,5 @@ class NavigationConstants {
       "/forgot_password_enter_code_view";
   static const FORGOT_PASSWORD_SET_PASSWORD_VIEW =
       "/forgot_password_set_password_view";
+  static const HOME_VIEW = "/home";
 }
