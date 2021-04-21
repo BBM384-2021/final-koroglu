@@ -13,12 +13,11 @@ class SignUpFourthView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SignUpViewModel viewmodel =
+        ModalRoute.of(context).settings.arguments as SignUpViewModel;
     return BaseView(
-      viewModel: SignUpViewModel(),
-      onModelReady: (model) {
-        model.setContext(context);
-        model.init();
-      },
+      viewModel: viewmodel,
+      onModelReady: (model) {},
       onPageBuilder: (BuildContext context, SignUpViewModel viewmodel) =>
           buildScaffold(context, viewmodel),
     );
@@ -41,7 +40,10 @@ Scaffold buildScaffold(BuildContext context, SignUpViewModel viewmodel) {
           Spacer(flex: 1),
           LargeOutlinedButton(
               text: LocaleKeys.signUpScreen_verificationCodePage_signUp,
-              onPressed: () {}),
+              onPressed: () {
+                print(viewmodel.emailController.text);
+                viewmodel.signUp();
+              }),
           Spacer(flex: 1),
           Expanded(
             flex: 3,

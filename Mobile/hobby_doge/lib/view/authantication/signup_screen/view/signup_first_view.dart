@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hobby_doge/core/base/view/base_view.dart';
 import 'package:hobby_doge/core/components/common_text_field.dart';
 import 'package:hobby_doge/core/components/large_outlined_button.dart';
@@ -94,9 +93,9 @@ class SignUpFirstView extends StatelessWidget {
     return LargeOutlinedButton(
         text: LocaleKeys.signUpScreen_next.locale,
         onPressed: () {
-          if (viewmodel.formState.currentState.validate()) {
+          if (viewmodel.firstViewFormState.currentState.validate()) {
             NavigationService.instance
-                .navigateToPage(path: "/signup_second_view");
+                .navigateToPage(path: "/signup_second_view", object: viewmodel);
           }
         });
   }
@@ -105,7 +104,7 @@ class SignUpFirstView extends StatelessWidget {
     return Expanded(
       flex: 6,
       child: Form(
-          key: viewmodel.formState,
+          key: viewmodel.firstViewFormState,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -116,26 +115,24 @@ class SignUpFirstView extends StatelessWidget {
     );
   }
 
-  Observer buildNameField(SignUpViewModel viewmodel) {
-    return Observer(
-        builder: (_) => CommonTextField(
-              text: LocaleKeys.signUpScreen_name.locale,
-              textController: viewmodel.nameController,
-              validator: (value) => value.isNotEmpty
-                  ? null
-                  : LocaleKeys.signUpScreen_fieldRequired.locale,
-            ));
+  CommonTextField buildNameField(SignUpViewModel viewmodel) {
+    return CommonTextField(
+      text: LocaleKeys.signUpScreen_name.locale,
+      textController: viewmodel.nameController,
+      validator: (value) => value.isNotEmpty
+          ? null
+          : LocaleKeys.signUpScreen_fieldRequired.locale,
+    );
   }
 
-  Observer buildSurnameField(SignUpViewModel viewmodel) {
-    return Observer(
-        builder: (_) => CommonTextField(
-              text: LocaleKeys.signUpScreen_surname.locale,
-              textController: viewmodel.surnameController,
-              validator: (value) => value.isNotEmpty
-                  ? null
-                  : LocaleKeys.signUpScreen_fieldRequired.locale,
-            ));
+  CommonTextField buildSurnameField(SignUpViewModel viewmodel) {
+    return CommonTextField(
+      text: LocaleKeys.signUpScreen_surname.locale,
+      textController: viewmodel.surnameController,
+      validator: (value) => value.isNotEmpty
+          ? null
+          : LocaleKeys.signUpScreen_fieldRequired.locale,
+    );
   }
 
   Expanded buildTitles(BuildContext context) {

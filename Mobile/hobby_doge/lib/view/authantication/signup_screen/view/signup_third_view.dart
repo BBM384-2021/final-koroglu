@@ -15,12 +15,11 @@ class SignUpThirdView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SignUpViewModel viewmodel =
+        ModalRoute.of(context).settings.arguments as SignUpViewModel;
     return BaseView(
-      viewModel: SignUpViewModel(),
-      onModelReady: (model) {
-        model.setContext(context);
-        model.init();
-      },
+      viewModel: viewmodel,
+      onModelReady: (model) {},
       onPageBuilder: (BuildContext context, SignUpViewModel viewmodel) =>
           buildScaffold(context, viewmodel),
     );
@@ -57,10 +56,10 @@ class SignUpThirdView extends StatelessWidget {
           LargeOutlinedButton(
               text: LocaleKeys.signUpScreen_sendCode.locale,
               onPressed: () {
-                if (viewmodel.formState.currentState.validate() &&
+                if (viewmodel.thirdViewFormState.currentState.validate() &&
                     viewmodel.checkPasswordMatched()) {
-                  NavigationService.instance
-                      .navigateToPage(path: "/signup_fourth_view");
+                  NavigationService.instance.navigateToPage(
+                      path: "/signup_fourth_view", object: viewmodel);
                 }
               }),
         ],
@@ -72,7 +71,7 @@ class SignUpThirdView extends StatelessWidget {
     return Expanded(
       flex: 6,
       child: Form(
-          key: viewmodel.formState,
+          key: viewmodel.thirdViewFormState,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

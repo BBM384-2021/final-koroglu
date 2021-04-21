@@ -56,7 +56,9 @@ class LoginView extends StatelessWidget {
           LargeOutlinedButton(
               text: LocaleKeys.loginScreen_login.locale,
               onPressed: () {
-                viewmodel.formState.currentState.validate();
+                if (viewmodel.formState.currentState.validate()) {
+                  viewmodel.login();
+                }
               }),
           Spacer(flex: 1),
           Expanded(

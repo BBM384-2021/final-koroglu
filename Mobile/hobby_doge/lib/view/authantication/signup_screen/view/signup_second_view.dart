@@ -16,12 +16,12 @@ class SignUpSecondView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SignUpViewModel viewmodel =
+        ModalRoute.of(context).settings.arguments as SignUpViewModel;
+
     return BaseView(
-      viewModel: SignUpViewModel(),
-      onModelReady: (model) {
-        model.setContext(context);
-        model.init();
-      },
+      viewModel: viewmodel,
+      onModelReady: (model) {},
       onPageBuilder: (BuildContext context, SignUpViewModel viewmodel) =>
           buildScaffold(context, viewmodel),
     );
@@ -57,9 +57,9 @@ class SignUpSecondView extends StatelessWidget {
           LargeOutlinedButton(
               text: LocaleKeys.signUpScreen_next.locale,
               onPressed: () {
-                if (viewmodel.formState.currentState.validate()) {
+                if (viewmodel.secondViewFormState.currentState.validate()) {
                   NavigationService.instance
-                      .navigateToPage(path: "/signup_third_view");
+                      .navigateToPage(path: "/signup_third_view",object:viewmodel);
                 }
               }),
         ],
@@ -71,7 +71,7 @@ class SignUpSecondView extends StatelessWidget {
     return Expanded(
       flex: 6,
       child: Form(
-          key: viewmodel.formState,
+          key: viewmodel.secondViewFormState,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -82,15 +82,14 @@ class SignUpSecondView extends StatelessWidget {
     );
   }
 
-  Observer buildUsernameField(SignUpViewModel viewmodel) {
-    return Observer(
-        builder: (_) => CommonTextField(
-              text: LocaleKeys.signUpScreen_username.locale,
-              textController: viewmodel.usernameController,
-              validator: (value) => value.isNotEmpty
-                  ? null
-                  : LocaleKeys.signUpScreen_fieldRequired.locale,
-            ));
+  CommonTextField buildUsernameField(SignUpViewModel viewmodel) {
+    return CommonTextField(
+      text: LocaleKeys.signUpScreen_username.locale,
+      textController: viewmodel.usernameController,
+      validator: (value) => value.isNotEmpty
+          ? null
+          : LocaleKeys.signUpScreen_fieldRequired.locale,
+    );
   }
 
   Expanded buildTitles(BuildContext context) {
@@ -163,13 +162,11 @@ class SignUpSecondView extends StatelessWidget {
   }
 }
 
-Observer buildEmailField(SignUpViewModel viewmodel) {
-  return Observer(
-      builder: (_) => CommonTextField(
-            text: LocaleKeys.signUpScreen_email.locale,
-            textController: viewmodel.emailController,
-            validator: (String value) => value.isValidEmail
-                ? null
-                : LocaleKeys.signUpScreen_invalidEmail.locale,
-          ));
+CommonTextField buildEmailField(SignUpViewModel viewmodel) {
+  return CommonTextField(
+    text: LocaleKeys.signUpScreen_email.locale,
+    textController: viewmodel.emailController,
+    validator: (String value) =>
+        value.isValidEmail ? null : LocaleKeys.signUpScreen_invalidEmail.locale,
+  );
 }
