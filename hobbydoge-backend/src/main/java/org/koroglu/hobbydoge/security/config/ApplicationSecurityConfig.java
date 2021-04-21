@@ -2,7 +2,6 @@ package org.koroglu.hobbydoge.security.config;
 
 import lombok.AllArgsConstructor;
 import org.koroglu.hobbydoge.security.jwt.AuthTokenFilter;
-import org.koroglu.hobbydoge.security.jwt.JWTAuthenticationFilter;
 import org.koroglu.hobbydoge.security.jwt.JwtUtils;
 import org.koroglu.hobbydoge.service.UserServiceImpl;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @Configuration
@@ -29,9 +29,12 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
             .cors().and().csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-            .addFilterAfter(new AuthTokenFilter(userService, jwtUtils), JWTAuthenticationFilter.class)
+            .addFilterBefore(new AuthTokenFilter(userService, jwtUtils), UsernamePasswordAuthenticationFilter.class)
             .authorizeRequests()
-            .antMatchers("/api/v1/user/**").permitAll()
+            .antMatchers("/v3/api-docs/**",
+                    "/swagger-ui/**").permitAll()
+            .antMatchers("/api/v1/auth/**").permitAll()
+            .antMatchers("/api/v1/clubs**", "/api/v1/clubs/**").permitAll()
             .anyRequest()
             .authenticated()
     ;
