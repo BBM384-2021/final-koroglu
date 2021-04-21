@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:hobby_doge/core/base/view/base_view.dart';
-import 'package:hobby_doge/core/components/large_outlined_button.dart';
-import 'package:hobby_doge/core/constants/navigation_constants.dart';
-import 'package:hobby_doge/core/init/lang/locale_keys.g.dart';
-import 'package:hobby_doge/core/init/navigation/navigation_service.dart';
-import 'package:hobby_doge/core/init/theme/color_scheme.dart';
-import 'package:hobby_doge/view/authantication/forgot_password_screen/viewmodel/forgot_password_view_model.dart';
-import 'package:hobby_doge/view/authantication/signup_screen/viewmodel/signup_view_model.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+
+import '../../../../core/base/view/base_view.dart';
+import '../../../../core/components/large_outlined_button.dart';
+import '../../../../core/constants/navigation_constants.dart';
 import '../../../../core/extensions/context_extension.dart';
 import '../../../../core/extensions/string_extension.dart';
+import '../../../../core/init/lang/locale_keys.g.dart';
+import '../../../../core/init/navigation/navigation_service.dart';
+import '../../../../core/init/theme/color_scheme.dart';
+import '../viewmodel/forgot_password_view_model.dart';
 
 class ForgotPasswordEnterCodeView extends StatelessWidget {
   const ForgotPasswordEnterCodeView({Key key}) : super(key: key);

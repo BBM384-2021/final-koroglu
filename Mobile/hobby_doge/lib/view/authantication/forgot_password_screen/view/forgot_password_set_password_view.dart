@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+
 import '../../../../core/base/view/base_view.dart';
 import '../../../../core/components/large_outlined_button.dart';
 import '../../../../core/components/password_text_field.dart';

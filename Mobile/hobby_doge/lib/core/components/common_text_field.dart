@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../init/theme/color_scheme.dart';
+
 import '../../core/extensions/context_extension.dart';
+import '../init/theme/color_scheme.dart';
 
 class CommonTextField extends StatelessWidget {
   const CommonTextField(

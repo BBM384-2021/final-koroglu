@@ -3,11 +3,10 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hobby_doge/core/components/darker_background_logo_svg.dart';
-import 'package:hobby_doge/core/components/logo_svg.dart';
 
 import '../../../core/base/state/base_state.dart';
 import '../../../core/base/view/base_view.dart';
+import '../../../core/components/darker_background_logo_svg.dart';
 import '../../../core/constants/navigation_constants.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../core/init/theme/color_scheme.dart';
