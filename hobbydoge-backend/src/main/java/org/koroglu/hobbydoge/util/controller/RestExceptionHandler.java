@@ -1,10 +1,7 @@
 package org.koroglu.hobbydoge.util.controller;
 
 import org.koroglu.hobbydoge.enums.BaseExceptionType;
-import org.koroglu.hobbydoge.exception.RestEmailAlreadyExistException;
-import org.koroglu.hobbydoge.exception.RestUserNotFoundException;
-import org.koroglu.hobbydoge.exception.RestUsernameAlreadyExistException;
-import org.koroglu.hobbydoge.exception.RestWrongPasswordException;
+import org.koroglu.hobbydoge.exception.*;
 import org.koroglu.hobbydoge.util.RestAPIError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -63,7 +60,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
   @ExceptionHandler({RestUserNotFoundException.class})
   public ResponseEntity<Object> handleRestEmailNotFoundException(RestUserNotFoundException ex) {
     RestAPIError apiError = RestAPIError.builder()
-            .httpStatus(HttpStatus.NOT_ACCEPTABLE.value())
+            .httpStatus(HttpStatus.NOT_FOUND.value())
             .type(ex.getType())
             .message(ex.getType().getMessage())
             .errors(Arrays.asList("User not found."))
@@ -81,6 +78,30 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             .build();
     return ResponseEntity.status(apiError.getHttpStatus()).headers(new HttpHeaders()).body(apiError);
   }
+
+  @ExceptionHandler({RestClubDoesNotExistException.class})
+  public ResponseEntity<Object> handleRestClubDoesNotExistException(RestClubDoesNotExistException ex) {
+    RestAPIError apiError = RestAPIError.builder()
+            .httpStatus(HttpStatus.NOT_FOUND.value())
+            .type(ex.getType())
+            .message(ex.getType().getMessage())
+            .errors(Arrays.asList("Club does not exist."))
+            .build();
+    return ResponseEntity.status(apiError.getHttpStatus()).headers(new HttpHeaders()).body(apiError);
+  }
+
+
+  @ExceptionHandler({RestClubNameAlreadyExistException.class})
+  public ResponseEntity<Object> handleRestClubNameAlreadyExistException(RestClubNameAlreadyExistException ex) {
+    RestAPIError apiError = RestAPIError.builder()
+            .httpStatus(HttpStatus.NOT_ACCEPTABLE.value())
+            .type(ex.getType())
+            .message(ex.getType().getMessage())
+            .errors(Arrays.asList("A club with this name already exist."))
+            .build();
+    return ResponseEntity.status(apiError.getHttpStatus()).headers(new HttpHeaders()).body(apiError);
+  }
+
 
   @Override
   protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {

@@ -44,7 +44,14 @@ public class User {
   private Boolean isAdmin = false;
   private Boolean isVerified = false;
 
-  @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+  @ManyToMany
+  @JoinTable(
+          name = "enroll_club",
+          joinColumns = @JoinColumn(name = "user_id"),
+          inverseJoinColumns = @JoinColumn(name = "club_id"))
+  Set<Club> enrolledClubs;
+
+  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
   @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles;
 

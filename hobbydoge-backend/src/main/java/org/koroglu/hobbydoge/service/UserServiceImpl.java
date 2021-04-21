@@ -68,9 +68,6 @@ public class UserServiceImpl implements UserService {
 
     Set<Role> roles = new HashSet<>();
 
-    Role newRole = new Role(RoleEnum.USER);
-    roleRepository.save(newRole);
-
     Role userRole = roleRepository.findByName(RoleEnum.USER)
             .orElseThrow(() -> new RuntimeException("Role is not found."));
     roles.add(userRole);
