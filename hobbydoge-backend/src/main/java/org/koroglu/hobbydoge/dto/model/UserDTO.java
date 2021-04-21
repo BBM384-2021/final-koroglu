@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @Accessors(chain = true)
 public class UserDTO {
 
+  private Long id;
   private String name;
   private String surname;
   private String username;
