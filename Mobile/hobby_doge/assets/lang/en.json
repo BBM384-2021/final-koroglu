@@ -1,0 +1,79 @@
+{
+    "welcome":"Welcome",
+    "pleaseCheckInternet":"Please check your internet connection.",
+    "tryAgain":"Try Again",
+    "welcomeScreen":{
+        "signup":"Sign Up Now",
+        "login":"Log In",
+        "welcomeToHobbyDoge":"Welcome To HobbyDoge",
+        "timeForHobbyDoge":"Time For HobbyDoge"
+    },
+    "loginScreen":{
+        "welcomeAgain":"Welcome Again!",
+        "timeForHobbyDoge":"Time For HobbyDoge",
+        "signup":"Sign Up",
+        "login":"Log In",
+        "dontYouHaveAccount":"Don't have an account?",
+        "forgotPassword":"Forgot password?",
+        "email":"Email",
+        "password":"Password",
+        "invalidEmail":"Please enter a valid email."
+
+    },
+    "signUpScreen":{
+        "createYourAccount":"Create Your Account",
+        "signup":"Sign Up",
+        "login":"Log In",
+        "email":"Email",
+        "password":"Password",
+        "invalidEmail":"Please enter a valid email.",
+        "name":"Name",
+        "surname":"Surname",
+        "alreadyHaveAccount":"Already Have An Account?",
+        "next":"Next",
+        "username":"Username",
+        "firstPageSubTitle":"Name And Surname",
+        "firstPageStep":"(Step 1/4)",
+        "secondPageSubTitle":"Username And Email",
+        "secondPageStep":"(Step 2/4)",
+
+        "thirdPageSubTitle":"Password (At Least 6 Characters)",
+        "thirdPageStep":"(Step 3/4)",
+
+        "confirmPassword":"Confirm Password",
+        "sendCode":"Send Verification Code",
+        "fieldRequired":"This field is required.",
+        "tooShortPassword":"Password is too short. At least 6 characters.",
+        "passwordsNotMatched":"Passwords not matched",
+
+        "verificationCodePage":{
+            "verificationCode":"Verification Code",
+            "verificationCodeSubTitle":"Please enter the verification code we sent to your email address.",
+            "signUp":"Sign Up",
+            "termsExplenation":"By signing up, you agree to our",
+            "termsLink":"Terms & Privacy Policy"
+        }
+
+
+    },
+    "forgotPassword":{
+        "resetPasswordView":{
+            "resetPassword":"Parolayı Değiştir",
+        "resetPasswordSubTitle":"Create your new password.",
+        "newPassword":"New Password",
+        "confirmNewPassword":"Confirm New Password",
+        "subTitleAboutPassword":"Password (At Least 6 Characters)"
+        },
+        "sendCodeToEmailView":{
+            "resetPassword":"Reset Password",
+            "resetPasswordSubTitle":"An email with the reset code will be sent to you.",
+            "email":"Email",
+            "sendResetCode":"Send Reset Code"
+        },
+        "enterResetCode":{
+            "resetCode":"Reset Code",
+            "resetCodeExplenation":"Please enter the reset code we sent to your email address.",
+            "resetPassword":"Reset Password"
+        }
+    }
+}
