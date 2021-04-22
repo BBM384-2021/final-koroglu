@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hobby_doge/view/admin_panel_screen/view/admin_panel_view.dart';
+import 'package:hobby_doge/view/admin_panel_screen/viewmodel/admin_panel_view_model.dart';
+import 'package:hobby_doge/view/all_clubs_screen/view/all_clubs_view.dart';
+import 'package:hobby_doge/view/create_club_screen/view/create_club_view.dart';
 import '../../../view/authantication/forgot_password_screen/view/forgot_password_email_view.dart';
 import '../../../view/authantication/forgot_password_screen/view/forgot_password_enter_code_view.dart';
 import 'package:hobby_doge/view/authantication/forgot_password_screen/view/forgot_password_set_password_view.dart';
@@ -50,8 +54,14 @@ class NavigationRoute {
       case NavigationConstants.FORGOT_PASSWORD_SET_PASSWORD_VIEW:
         return MaterialPageRoute(
             builder: (context) => ForgotPasswordSetPasswordView());
+      case NavigationConstants.ALL_CLUBS_VIEW:
+        return MaterialPageRoute(builder: (context) => AllClubsView());
       case NavigationConstants.HOME_VIEW:
         return MaterialPageRoute(builder: (context) => HomeView());
+      case NavigationConstants.ADMIN_PANEL_VIEW:
+        return MaterialPageRoute(builder: (context) => AdminPanelView());
+      case NavigationConstants.CREATE_CLUB_VIEW:
+        return MaterialPageRoute(builder: (context) => CreateClubView());
 
       default:
         return MaterialPageRoute(

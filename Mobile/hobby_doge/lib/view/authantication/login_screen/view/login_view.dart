@@ -95,8 +95,7 @@ class LoginView extends StatelessWidget {
   Padding buildForgotPasswordButton(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: context.height * 0.03),
-      child: Expanded(
-          child: Container(
+      child: Container(
         alignment: Alignment.centerRight,
         width: context.width * 0.8,
         child: TextButton(
@@ -108,7 +107,7 @@ class LoginView extends StatelessWidget {
               LocaleKeys.loginScreen_forgotPassword.locale,
               style: TextStyle(color: AppColorScheme.instance.greenLight2),
             )),
-      )),
+      ),
     );
   }
 
@@ -127,15 +126,14 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  Observer buildEmailField(LoginViewModel viewmodel) {
-    return Observer(
-        builder: (_) => CommonTextField(
-              text: LocaleKeys.loginScreen_email.locale,
-              textController: viewmodel.emailController,
-              validator: (String value) => value.isValidEmail
-                  ? null
-                  : LocaleKeys.loginScreen_invalidEmail.locale,
-            ));
+  CommonTextField buildEmailField(LoginViewModel viewmodel) {
+    return CommonTextField(
+      text: LocaleKeys.loginScreen_email.locale,
+      textController: viewmodel.emailController,
+      validator: (String value) => value.isValidEmail
+          ? null
+          : LocaleKeys.loginScreen_invalidEmail.locale,
+    );
   }
 
   Observer buildPasswordField(LoginViewModel viewmodel) {
