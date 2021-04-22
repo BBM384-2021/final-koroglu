@@ -69,6 +69,10 @@ public class ClubServiceImpl implements ClubService {
       club.setDescription(clubRequest.getDescription());
     }
 
+    if (clubRequest.getPicture() != null) {
+      club.setPicture(clubRequest.getPicture());
+    }
+
     return ClubMapper.toClubDTO(clubRepository.save(club));
   }
 
