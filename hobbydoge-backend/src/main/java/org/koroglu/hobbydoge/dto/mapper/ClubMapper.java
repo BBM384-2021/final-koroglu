@@ -8,7 +8,7 @@ public class ClubMapper {
     return new ClubDTO()
             .setId(club.getId())
             .setName(club.getName())
-            .setDescription(club.getName())
+            .setDescription(club.getDescription())
             .setPicture(club.getPicture())
             .setRating(club.getRating())
             .setMembers(club.getMembers())
