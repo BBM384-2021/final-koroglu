@@ -14,7 +14,7 @@ import java.util.Set;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity(name = "subclubs")
-public class SubClub {
+public class SubClub{
 
   @SequenceGenerator(
           name = "subClub_sequence",
@@ -34,9 +34,19 @@ public class SubClub {
   private Double rating;
   private LocalDateTime lastActive;
 
+
   @OneToOne
   private User admin;
 
   @ManyToMany
   private Set<User> members;
+
+  public SubClub(String name,String description,String picture){
+        this.name = name ;
+        this.description = description;
+        this.picture = picture;
+        this.members = new HashSet<User>();
+}       
+
+
 }
