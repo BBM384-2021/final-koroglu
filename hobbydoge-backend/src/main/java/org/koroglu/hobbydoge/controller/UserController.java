@@ -20,15 +20,6 @@ public class UserController {
   @Autowired
   private UserService userService;
 
-  @PostMapping("/register")
-  public ResponseEntity<?> register(@RequestBody @Valid RegisterRequest registerRequest) throws ParseException {
-    return ResponseEntity.ok().body(userService.register(registerRequest));
-  }
-
-  @PostMapping("/login")
-  public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest) {
-    return ResponseEntity.ok().body(userService.login(loginRequest));
-  }
 
 //  @PostMapping("/verification")
 //  public ResponseEntity<?> verificateUser(@RequestBody @Valid VerificationRequest verificationRequest) {
