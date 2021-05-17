@@ -4,22 +4,24 @@ import io.jsonwebtoken.Jwts;
 import lombok.AllArgsConstructor;
 import org.koroglu.hobbydoge.controller.request.LoginRequest;
 import org.koroglu.hobbydoge.controller.request.RegisterRequest;
+import org.koroglu.hobbydoge.controller.request.ResetPasswordRequest;
 import org.koroglu.hobbydoge.dto.mapper.LoginMapper;
 import org.koroglu.hobbydoge.dto.model.LoginDTO;
 import org.koroglu.hobbydoge.exception.*;
-import org.koroglu.hobbydoge.model.Role;
-import org.koroglu.hobbydoge.model.RoleEnum;
-import org.koroglu.hobbydoge.model.User;
+import org.koroglu.hobbydoge.model.*;
+import org.koroglu.hobbydoge.repository.ConfirmationTokenRepository;
+import org.koroglu.hobbydoge.repository.PasswordResetTokenRepository;
 import org.koroglu.hobbydoge.repository.RoleRepository;
 import org.koroglu.hobbydoge.repository.UserRepository;
 import org.koroglu.hobbydoge.security.jwt.JwtUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashSet;
@@ -30,11 +32,11 @@ import java.util.Set;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
-  @Autowired
   private final UserRepository userRepository;
-
-  @Autowired
   private final RoleRepository roleRepository;
+  private final ConfirmationTokenRepository confirmationTokenRepository;
+  private final PasswordResetTokenRepository passwordResetTokenRepository;
+  private final EmailService emailService;
 
   BCryptPasswordEncoder bCryptPasswordEncoder;
   JwtUtils jwtUtils;
@@ -45,7 +47,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public String register(RegisterRequest registerRequest) throws ParseException {
+  public LoginDTO register(RegisterRequest registerRequest) throws ParseException {
 
     Optional<User> user = userRepository.findByEmail(registerRequest.getEmail());
     if (user.isPresent()) {
@@ -68,6 +70,9 @@ public class UserServiceImpl implements UserService {
 
     Set<Role> roles = new HashSet<>();
 
+    Role newRole = new Role(RoleEnum.USER);
+    roleRepository.save(newRole);
+
     Role userRole = roleRepository.findByName(RoleEnum.USER)
             .orElseThrow(() -> new RuntimeException("Role is not found."));
     roles.add(userRole);
@@ -76,7 +81,29 @@ public class UserServiceImpl implements UserService {
 
     userRepository.save(newUser);
 
-    return "Registered successfully";
+    ConfirmationToken token = new ConfirmationToken(
+            LocalDateTime.now(),
+            LocalDateTime.now().plusMinutes(30),
+            newUser
+    );
+
+    confirmationTokenRepository.save(token);
+
+    emailService.send(
+            newUser.getEmail(),
+            "Welcome to HobbyDoge! Confirm your account.",
+            "Confirm your account",
+            "To complete and secure your HobbyDoge account, we need to confirm your account.",
+            token.getToken());
+
+    String jwtToken = Jwts.builder().setSubject(newUser.getEmail())
+            .claim("authorities", newUser.getAuthorities())
+            .setIssuedAt(new Date())
+            .signWith(jwtUtils.secretKey()).compact();
+
+    return LoginMapper.toLoginDTO(newUser, jwtToken);
+
+//    return String.format("Registered successfully, cToken: %s", token.getToken());
   }
 
   @Override
@@ -105,4 +132,66 @@ public class UserServiceImpl implements UserService {
     return LoginMapper.toLoginDTO(user, token);
 
   }
+
+  @Override
+  public String confirmUser(String token) {
+    ConfirmationToken confirmationToken = confirmationTokenRepository.findByToken(token).orElseThrow(() -> new RestTokenDoesNotExist());
+
+    User requestUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    if (!confirmationToken.getUser().getId().equals(requestUser.getId())) {
+      throw new RestTokenNotValidException();
+    }
+
+    if (confirmationToken.getConfirmedAt() != null) {
+      throw new RestUserAlreadyConfirmedException();
+    }
+
+    LocalDateTime expiresAt = confirmationToken.getExpiresAt();
+
+    if (expiresAt.isBefore(LocalDateTime.now())) {
+      throw new RestTokenExpiredException();
+    }
+
+    confirmationTokenRepository.updateConfirmedAt(token, LocalDateTime.now());
+
+    enableUser(confirmationToken.getUser().getId());
+
+    return "User confirmed.";
+
+  }
+
+  @Override
+  public String resetPassword(ResetPasswordRequest resetPasswordRequest) {
+    PasswordResetToken resetToken = passwordResetTokenRepository.findByToken(resetPasswordRequest.getToken()).orElseThrow(() -> new RestTokenDoesNotExist());
+
+    User user = userRepository.findByEmail(resetPasswordRequest.getEmail()).orElseThrow(() -> new RestUserNotFoundException());
+
+    if (user.getId() != resetToken.getUser().getId()) {
+      throw new RestTokenNotValidException();
+    }
+
+    if (resetToken.getResetedAt() != null) {
+      throw new RestTokenNotValidException();
+    }
+
+    LocalDateTime expiresAt = resetToken.getExpiresAt();
+
+    if (expiresAt.isBefore(LocalDateTime.now())) {
+      throw new RestTokenExpiredException();
+    }
+
+    String encryptedPassword = bCryptPasswordEncoder.encode(resetPasswordRequest.getPassword());
+
+    userRepository.updatePassword(user.getId(), encryptedPassword);
+
+    passwordResetTokenRepository.updateResetedAt(resetPasswordRequest.getToken(), LocalDateTime.now());
+
+    return "Password changed.";
+  }
+
+  public int enableUser(Long id) {
+    return userRepository.enableUser(id);
+  }
+
 }
