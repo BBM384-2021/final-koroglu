@@ -42,7 +42,7 @@ public class User {
   private Boolean isBanned = false;
   private Boolean isAnswered = false;
   private Boolean isAdmin = false;
-  private Boolean isVerified = false;
+  private Boolean isConfirmed = false;
 
   @ManyToMany
   @JoinTable(
