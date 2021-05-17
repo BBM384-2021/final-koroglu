@@ -19,8 +19,8 @@ public class VerificationRequest {
   @NotNull(message = "Email cannot be empty.")
   private String email;
 
-  @Size(min = 6, max = 6, message = "Verification code must be 6 digit long.")
-  @NotNull(message = "Verification code cannot be empty.")
-  private Integer verificationCode;
+  @Size(min = 6, max = 6, message = "Confirmation code must be 6 digit long.")
+  @NotNull(message = "Confirmation code cannot be empty.")
+  private String verificationCode;
 
 }

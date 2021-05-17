@@ -25,7 +25,7 @@ public class UserDTO {
   private Boolean isBanned;
   private Boolean isAnswered;
   private Boolean isAdmin;
-  private Boolean isVerified;
+  private Boolean isConfirmed;
 
   public String getFullName() {
     return name != null ? name.concat(" ").concat(surname) : "";
