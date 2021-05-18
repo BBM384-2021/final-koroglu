@@ -14,4 +14,6 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
 
   Optional<Club> findByName(String name);
 
+  List<Club> findByNameContainingIgnoreCase(String name);
+
 }
