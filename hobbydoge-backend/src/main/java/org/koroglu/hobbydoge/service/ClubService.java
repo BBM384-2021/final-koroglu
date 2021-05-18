@@ -17,4 +17,6 @@ public interface ClubService {
 
   HashMap<String, String> delete(Long id);
 
+  List<ClubDTO> search(String q);
+
 }

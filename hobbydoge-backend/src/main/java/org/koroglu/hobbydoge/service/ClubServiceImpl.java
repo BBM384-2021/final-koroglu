@@ -9,7 +9,6 @@ import org.koroglu.hobbydoge.exception.RestClubDoesNotExistException;
 import org.koroglu.hobbydoge.exception.RestClubNameAlreadyExistException;
 import org.koroglu.hobbydoge.model.Club;
 import org.koroglu.hobbydoge.repository.ClubRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -21,16 +20,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ClubServiceImpl implements ClubService {
 
-  @Autowired
   private final ClubRepository clubRepository;
 
   @Override
   public List<ClubDTO> getClubs(int offset, int limit) {
     System.out.println(clubRepository.getAllClubs(offset, limit));
-    return clubRepository.getAllClubs(offset, limit).stream().map(club -> {
-              System.out.println(club);
-              return ClubMapper.toClubDTO(club);
-            }
+    return clubRepository.getAllClubs(offset, limit).stream().map(ClubMapper::toClubDTO
     ).collect(Collectors.toList());
   }
 
@@ -92,6 +87,11 @@ public class ClubServiceImpl implements ClubService {
     clubRepository.delete(optionalClub.get());
 
     return response;
+  }
+
+  @Override
+  public List<ClubDTO> search(String q) {
+    return clubRepository.findByNameContainingIgnoreCase(q).stream().map(ClubMapper::toClubDTO).collect(Collectors.toList());
   }
 
 
