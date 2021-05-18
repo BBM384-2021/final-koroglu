@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
 @RestController
 @RequestMapping("api/v1/clubs")
@@ -36,7 +37,11 @@ public class ClubController {
 
   @DeleteMapping("/{clubId}")
   public ResponseEntity<?> deleteClub(@PathVariable("clubId") Long clubId) {
-
     return ResponseEntity.ok().body(clubService.delete(clubId));
+  }
+
+  @GetMapping("/search")
+  public ResponseEntity<?> searchClubs(@RequestParam(value = "q") @Size(min = 3) String q) {
+    return ResponseEntity.ok().body(clubService.search(q));
   }
 }
