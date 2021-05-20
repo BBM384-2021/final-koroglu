@@ -32,7 +32,7 @@ public class EmailServiceImpl implements EmailService {
   @Override
   public String sendResetMail(String to) {
 
-    User user = userRepository.findByEmail(to).orElseThrow(() -> new RestUserNotFoundException());
+    User user = userRepository.findByEmail(to).orElseThrow(RestUserNotFoundException::new);
 
     PasswordResetToken passwordResetToken = new PasswordResetToken(
             LocalDateTime.now(),
@@ -626,8 +626,7 @@ public class EmailServiceImpl implements EmailService {
             "                                                  background-color: inherit;\n" +
             "                                                \"\n" +
             "                                              >\n" +
-            "                                                <a\n" +
-            "                                                  href=\"#\"\n" +
+            "                                                <p\n" +
             "                                                  style=\"\n" +
             "                                                    color: #6AC88F;\n" +
             "                                                    display: inline-block;\n" +
@@ -641,8 +640,7 @@ public class EmailServiceImpl implements EmailService {
             "                                                    font-family: arial,\n" +
             "                                                      helvetica, sans-serif;\n" +
             "                                                  \"\n" +
-            "                                                  target=\"_blank\"\n" +
-            "                                                  >" + token + "</a\n" +
+            "                                                  >" + token + "</p\n" +
             "                                                >\n" +
             "                                              </td>\n" +
             "                                            </tr>\n" +
