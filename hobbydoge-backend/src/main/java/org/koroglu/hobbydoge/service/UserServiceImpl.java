@@ -70,9 +70,6 @@ public class UserServiceImpl implements UserService {
 
     Set<Role> roles = new HashSet<>();
 
-    Role newRole = new Role(RoleEnum.USER);
-    roleRepository.save(newRole);
-
     Role userRole = roleRepository.findByName(RoleEnum.USER)
             .orElseThrow(() -> new RuntimeException("Role is not found."));
     roles.add(userRole);
@@ -135,7 +132,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public String confirmUser(String token) {
-    ConfirmationToken confirmationToken = confirmationTokenRepository.findByToken(token).orElseThrow(() -> new RestTokenDoesNotExist());
+    ConfirmationToken confirmationToken = confirmationTokenRepository.findByToken(token).orElseThrow(RestTokenDoesNotExist::new);
 
     User requestUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -163,9 +160,9 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public String resetPassword(ResetPasswordRequest resetPasswordRequest) {
-    PasswordResetToken resetToken = passwordResetTokenRepository.findByToken(resetPasswordRequest.getToken()).orElseThrow(() -> new RestTokenDoesNotExist());
+    PasswordResetToken resetToken = passwordResetTokenRepository.findByToken(resetPasswordRequest.getToken()).orElseThrow(RestTokenDoesNotExist::new);
 
-    User user = userRepository.findByEmail(resetPasswordRequest.getEmail()).orElseThrow(() -> new RestUserNotFoundException());
+    User user = userRepository.findByEmail(resetPasswordRequest.getEmail()).orElseThrow(RestUserNotFoundException::new);
 
     if (user.getId() != resetToken.getUser().getId()) {
       throw new RestTokenNotValidException();
