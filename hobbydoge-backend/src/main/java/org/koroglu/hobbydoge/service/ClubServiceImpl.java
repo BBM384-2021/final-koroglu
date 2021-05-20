@@ -31,15 +31,24 @@ public class ClubServiceImpl implements ClubService {
   public ClubDTO get(Long id) {
 
     Club club = clubRepository.findById(id).orElseThrow(RestClubDoesNotExistException::new);
-
     return ClubMapper.toClubDTO(club);
+
   }
 
   @Override
   public List<ClubDTO> getClubs(int offset, int limit) {
-    System.out.println(clubRepository.getAllClubs(offset, limit));
-    return clubRepository.getAllClubs(offset, limit).stream().map(ClubMapper::toClubDTO
-    ).collect(Collectors.toList());
+
+    return clubRepository.getAllClubs(offset, limit).stream()
+            .map(ClubMapper::toClubDTO).collect(Collectors.toList());
+
+  }
+
+  @Override
+  public List<ClubDTO> search(String q) {
+
+    return clubRepository.findByNameContainingIgnoreCase(q).stream()
+            .map(ClubMapper::toClubDTO).collect(Collectors.toList());
+    
   }
 
   @Override
@@ -100,11 +109,6 @@ public class ClubServiceImpl implements ClubService {
     clubRepository.delete(optionalClub.get());
 
     return response;
-  }
-
-  @Override
-  public List<ClubDTO> search(String q) {
-    return clubRepository.findByNameContainingIgnoreCase(q).stream().map(ClubMapper::toClubDTO).collect(Collectors.toList());
   }
 
   @Override

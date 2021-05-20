@@ -13,14 +13,14 @@ public interface ClubService {
 
   List<ClubDTO> getClubs(int offset, int limit);
 
+  List<ClubDTO> search(String q);
+
   ClubDTO create(NewClubRequest newClubRequest);
 
   ClubDTO update(Long id, ClubRequest clubRequest);
 
   HashMap<String, String> delete(Long id);
-
-  List<ClubDTO> search(String q);
-
+  
   String join(Long id);
 
   String leave(Long id);
