@@ -7,8 +7,12 @@ import org.koroglu.hobbydoge.dto.mapper.ClubMapper;
 import org.koroglu.hobbydoge.dto.model.ClubDTO;
 import org.koroglu.hobbydoge.exception.RestClubDoesNotExistException;
 import org.koroglu.hobbydoge.exception.RestClubNameAlreadyExistException;
+import org.koroglu.hobbydoge.exception.RestUserNotFoundException;
 import org.koroglu.hobbydoge.model.Club;
+import org.koroglu.hobbydoge.model.User;
 import org.koroglu.hobbydoge.repository.ClubRepository;
+import org.koroglu.hobbydoge.repository.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -21,6 +25,15 @@ import java.util.stream.Collectors;
 public class ClubServiceImpl implements ClubService {
 
   private final ClubRepository clubRepository;
+  private final UserRepository userRepository;
+
+  @Override
+  public ClubDTO get(Long id) {
+
+    Club club = clubRepository.findById(id).orElseThrow(RestClubDoesNotExistException::new);
+
+    return ClubMapper.toClubDTO(club);
+  }
 
   @Override
   public List<ClubDTO> getClubs(int offset, int limit) {
@@ -92,6 +105,40 @@ public class ClubServiceImpl implements ClubService {
   @Override
   public List<ClubDTO> search(String q) {
     return clubRepository.findByNameContainingIgnoreCase(q).stream().map(ClubMapper::toClubDTO).collect(Collectors.toList());
+  }
+
+  @Override
+  public String join(Long id) {
+    User contextUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    //TODO: Add interest point check here.
+
+    User user = userRepository.findById(contextUser.getId()).orElseThrow(RestUserNotFoundException::new);
+
+    Club club = clubRepository.findById(id).orElseThrow(RestClubDoesNotExistException::new);
+
+    club.getMembers().add(user);
+
+    clubRepository.save(club);
+
+    return String.format("User with ID: %d joined to the %s club successfully.", user.getId(), club.getName());
+
+  }
+
+  @Override
+  public String leave(Long id) {
+    User contextUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    User user = userRepository.findById(contextUser.getId()).orElseThrow(RestUserNotFoundException::new);
+
+    Club club = clubRepository.findById(id).orElseThrow(RestClubDoesNotExistException::new);
+
+    club.getMembers().remove(user);
+
+    clubRepository.save(club);
+
+    return String.format("User with ID: %d left the %s club successfully.", user.getId(), club.getName());
+
   }
 
 
