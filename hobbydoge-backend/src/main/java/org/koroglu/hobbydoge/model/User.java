@@ -15,7 +15,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
 @Entity(name = "users")
 public class User {
@@ -45,10 +44,6 @@ public class User {
   private Boolean isConfirmed = false;
 
   @ManyToMany
-  @JoinTable(
-          name = "enroll_club",
-          joinColumns = @JoinColumn(name = "user_id"),
-          inverseJoinColumns = @JoinColumn(name = "club_id"))
   Set<Club> enrolledClubs;
 
   @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
