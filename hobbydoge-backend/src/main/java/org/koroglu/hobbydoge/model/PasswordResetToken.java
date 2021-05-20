@@ -11,11 +11,12 @@ import java.util.Random;
 
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @Entity(name = "password_reset_tokens")
 public class PasswordResetToken {
 
+  @EqualsAndHashCode.Include
   @SequenceGenerator(
           name = "password_reset_token_sequence",
           sequenceName = "password_reset_token_sequence",

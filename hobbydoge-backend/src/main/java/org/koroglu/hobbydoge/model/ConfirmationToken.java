@@ -11,11 +11,12 @@ import java.util.Random;
 
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @Entity(name = "confirmation_tokens")
 public class ConfirmationToken {
 
+  @EqualsAndHashCode.Include
   @SequenceGenerator(
           name = "confirmation_token_sequence",
           sequenceName = "confirmation_token_sequence",
