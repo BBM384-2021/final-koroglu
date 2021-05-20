@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface ClubService {
 
+  ClubDTO get(Long id);
+
   List<ClubDTO> getClubs(int offset, int limit);
 
   ClubDTO create(NewClubRequest newClubRequest);
@@ -18,5 +20,9 @@ public interface ClubService {
   HashMap<String, String> delete(Long id);
 
   List<ClubDTO> search(String q);
+
+  String join(Long id);
+
+  String leave(Long id);
 
 }
