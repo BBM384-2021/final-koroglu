@@ -7,18 +7,8 @@ Widget appBarWithBackLeading(BuildContext context, String title) {
       centerTitle: true,
       title: Text(
         title,
-        style: TextStyle(color: Colors.black),
+        style: TextStyle(color: AppColorScheme.instance.darkerGrey),
       ),
-      actions: [
-        Padding(
-          padding: EdgeInsets.only(right: 10.0),
-          child: Icon(
-            Icons.search,
-            color: Colors.green,
-            size: context.width * 0.1,
-          ),
-        )
-      ],
       elevation: 0,
       automaticallyImplyLeading: true,
       backgroundColor: Colors.transparent,
