@@ -3,6 +3,7 @@ import 'package:hobby_doge/view/admin_panel_screen/view/admin_panel_view.dart';
 import 'package:hobby_doge/view/admin_panel_screen/viewmodel/admin_panel_view_model.dart';
 import 'package:hobby_doge/view/all_clubs_screen/view/all_clubs_view.dart';
 import 'package:hobby_doge/view/create_club_screen/view/create_club_view.dart';
+import 'package:hobby_doge/view/feed_screen/view/feed_view.dart';
 import '../../../view/authantication/forgot_password_screen/view/forgot_password_email_view.dart';
 import '../../../view/authantication/forgot_password_screen/view/forgot_password_enter_code_view.dart';
 import 'package:hobby_doge/view/authantication/forgot_password_screen/view/forgot_password_set_password_view.dart';
@@ -62,6 +63,8 @@ class NavigationRoute {
         return MaterialPageRoute(builder: (context) => AdminPanelView());
       case NavigationConstants.CREATE_CLUB_VIEW:
         return MaterialPageRoute(builder: (context) => CreateClubView());
+      case NavigationConstants.FEED_VIEW:
+        return MaterialPageRoute(builder: (context) => FeedView());
 
       default:
         return MaterialPageRoute(
