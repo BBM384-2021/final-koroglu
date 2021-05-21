@@ -1,5 +1,6 @@
 package org.koroglu.hobbydoge.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,11 +16,12 @@ import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity(name = "users")
 public class User {
 
+  @EqualsAndHashCode.Include
   @SequenceGenerator(
           name = "user_sequence",
           sequenceName = "user_sequence",
@@ -42,13 +44,9 @@ public class User {
   private Boolean isBanned = false;
   private Boolean isAnswered = false;
   private Boolean isAdmin = false;
-  private Boolean isVerified = false;
+  private Boolean isConfirmed = false;
 
   @ManyToMany
-  @JoinTable(
-          name = "enroll_club",
-          joinColumns = @JoinColumn(name = "user_id"),
-          inverseJoinColumns = @JoinColumn(name = "club_id"))
   Set<Club> enrolledClubs;
 
   @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
@@ -73,4 +71,17 @@ public class User {
     this.profilePicture = profilePicture;
   }
 
+//  @Override
+//  public int hashCode() {
+//    return this.id.hashCode();
+//  }
+//
+//  @Override
+//  public boolean equals(Object obj) {
+//    if (!(obj instanceof User)) {
+//      return false;
+//    }
+//    User other = (User) obj;
+//    return this.id.equals(other.getId());
+//  }
 }

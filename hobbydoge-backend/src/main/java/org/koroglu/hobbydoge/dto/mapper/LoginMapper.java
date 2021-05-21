@@ -16,7 +16,7 @@ public class LoginMapper {
             .setIsBanned(user.getIsBanned())
             .setIsAnswered(user.getIsAnswered())
             .setIsAdmin(user.getIsAdmin())
-            .setIsVerified(user.getIsVerified())
+            .setIsConfirmed(user.getIsConfirmed())
             .setToken(token);
 
   }

@@ -12,7 +12,11 @@ public enum BaseExceptionType {
   REST_WRONG_PASSWORD_EXCEPTION("Wrong password."),
   REST_ACCESS_DENIED_EXCEPTION("You don't have permission."),
   REST_CLUB_NAME_ALREADY_EXIST_EXCEPTION("A club with this name already exist."),
-  REST_CLUB_DOES_NOT_EXIST_EXCEPTION("Club does not exist.");
+  REST_CLUB_DOES_NOT_EXIST_EXCEPTION("Club does not exist."),
+  REST_CONFIRMATION_TOKEN_DOES_NOT_EXIST("Token does not exist."),
+  REST_USER_ALREADY_CONFIRMED("User already confirmed."),
+  REST_TOKEN_EXPIRED("Token expired."),
+  REST_TOKEN_NOT_VALID("Token is not valid.");
 
   @Getter
   private final String message;
