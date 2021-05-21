@@ -35,6 +35,11 @@ dependencies:
   device_preview: ^0.7.1
   json_serializable: ^4.1.1
   auto_size_text: ^2.1.0
+  firebase_picture_uploader: ^1.2.3
+  image_cropper: ^1.4.0
+  firebase_storage: ^8.1.0
+  shared_preferences: ^2.0.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
