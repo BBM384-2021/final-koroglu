@@ -25,15 +25,11 @@ class NetworkService {
     });
     print(response.statusCode);
     if (response.statusCode == HttpStatus.ok) {
-      print("akjsdha");
       Iterable iterableBody = json.decode(response.body);
       List<Club> allClubs = [];
       for (var item in iterableBody) {
-        print("akjsdkasd");
         allClubs.add(Club.fromJson(item));
-        print("EKLENDİ"); 
       }
-      print("akjshdkajsdhkajshgsdjghafdhags");
       print(allClubs.isEmpty);
       return allClubs;
     } else {
