@@ -16,6 +16,8 @@ public enum BaseExceptionType {
   REST_CONFIRMATION_TOKEN_DOES_NOT_EXIST("Token does not exist."),
   REST_USER_ALREADY_CONFIRMED("User already confirmed."),
   REST_TOKEN_EXPIRED("Token expired."),
+  REST_SUB_CLUB_DOES_NOT_EXIST_EXCEPTION("SubClub does not exist."),
+  REST_SUB_CLUB_NAME_ALREADY_EXIST_EXCEPTION("A club with this name already exist."),
   REST_TOKEN_NOT_VALID("Token is not valid.");
 
   @Getter
