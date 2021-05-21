@@ -50,5 +50,4 @@ public class SubClub {
     this.members = new HashSet<User>();
   }
 
-
 }
