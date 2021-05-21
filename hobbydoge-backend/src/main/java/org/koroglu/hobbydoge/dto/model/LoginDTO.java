@@ -23,6 +23,6 @@ public class LoginDTO {
   private Boolean isBanned;
   private Boolean isAnswered;
   private Boolean isAdmin;
-  private Boolean isVerified;
+  private Boolean isConfirmed;
   private String token;
 }

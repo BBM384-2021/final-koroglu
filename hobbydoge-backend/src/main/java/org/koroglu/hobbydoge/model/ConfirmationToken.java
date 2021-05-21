@@ -7,23 +7,25 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Random;
 
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-@Entity(name = "verification_tokens")
-public class VerificationToken {
+@Entity(name = "confirmation_tokens")
+public class ConfirmationToken {
 
+  @EqualsAndHashCode.Include
   @SequenceGenerator(
-          name = "verification_token_sequence",
-          sequenceName = "verification_token_sequence",
+          name = "confirmation_token_sequence",
+          sequenceName = "confirmation_token_sequence",
           allocationSize = 1
   )
   @Id
   @GeneratedValue(
           strategy = GenerationType.SEQUENCE,
-          generator = "verification_token_sequence"
+          generator = "confirmation_token_sequence"
   )
   private Long id;
 
@@ -42,11 +44,14 @@ public class VerificationToken {
   @JoinColumn(nullable = false, name = "user_id")
   private User user;
 
-  public VerificationToken(String token,
-                           LocalDateTime createdAt,
-                           LocalDateTime expiresAt,
-                           User user) {
-    this.token = token;
+  public ConfirmationToken(
+          LocalDateTime createdAt,
+          LocalDateTime expiresAt,
+          User user) {
+
+    Random rand = new Random();
+    int number = rand.nextInt(999999);
+    this.token = String.format("%06d", number);
     this.createdAt = createdAt;
     this.expiresAt = expiresAt;
     this.user = user;

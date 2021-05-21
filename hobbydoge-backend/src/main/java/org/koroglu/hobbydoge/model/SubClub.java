@@ -7,15 +7,17 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @Entity(name = "subclubs")
-public class SubClub{
+public class SubClub {
 
+  @EqualsAndHashCode.Include
   @SequenceGenerator(
           name = "subClub_sequence",
           sequenceName = "subClub_sequence",
@@ -41,12 +43,12 @@ public class SubClub{
   @ManyToMany
   private Set<User> members;
 
-  public SubClub(String name,String description,String picture){
-        this.name = name ;
-        this.description = description;
-        this.picture = picture;
-        this.members = new HashSet<User>();
-}       
+  public SubClub(String name, String description, String picture) {
+    this.name = name;
+    this.description = description;
+    this.picture = picture;
+    this.members = new HashSet<User>();
+  }
 
 
 }

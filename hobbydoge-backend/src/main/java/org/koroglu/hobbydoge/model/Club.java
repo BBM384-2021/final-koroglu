@@ -11,10 +11,12 @@ import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @Entity(name = "clubs")
 public class Club {
+
+  @EqualsAndHashCode.Include
   @SequenceGenerator(
           name = "club_sequence",
           sequenceName = "club_sequence",
