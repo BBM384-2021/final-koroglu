@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "196454535360",
+    "project_id": "hobbydoge",
+    "storage_bucket": "hobbydoge.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:196454535360:android:ced90f3313e5165f171d25",
+        "android_client_info": {
+          "package_name": "com.example.hobby_doge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "196454535360-od0ujgd3vqosidcc5dlvua0b0higb4so.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hobby_doge",
+            "certificate_hash": "c16844fda12d5912bbd94650d9856330f596138a"
+          }
+        },
+        {
+          "client_id": "196454535360-2qt2734o6ej4qcbca1hppm1rekv6q2no.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlW7YhMurCJXeJbXX35kx6Oq16FemfcTk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "196454535360-2qt2734o6ej4qcbca1hppm1rekv6q2no.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -40,8 +40,7 @@ public class PasswordResetToken {
 
   private LocalDateTime resetedAt;
 
-  @ManyToOne
-  @JoinColumn(nullable = false, name = "user_id")
+  @OneToOne
   private User user;
 
   public PasswordResetToken(

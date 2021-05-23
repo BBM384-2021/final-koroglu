@@ -3,10 +3,7 @@ package org.koroglu.hobbydoge.controller;
 import lombok.AllArgsConstructor;
 import org.koroglu.hobbydoge.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -14,6 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
   private UserService userService;
+
+  @GetMapping("/{userId}")
+  public ResponseEntity<?> getUserDetails(@PathVariable("userId") Long userId) {
+    return ResponseEntity.ok("ok");
+  }
 
   @PostMapping("/confirm")
   public ResponseEntity<?> confirmUser(@RequestParam(name = "token") String token) {
