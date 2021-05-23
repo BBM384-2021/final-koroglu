@@ -3,6 +3,7 @@ package org.koroglu.hobbydoge.service;
 import org.koroglu.hobbydoge.controller.request.ClubRequest;
 import org.koroglu.hobbydoge.controller.request.NewClubRequest;
 import org.koroglu.hobbydoge.dto.model.ClubDTO;
+import org.koroglu.hobbydoge.dto.model.ListClubsDTO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,7 @@ public interface ClubService {
 
   ClubDTO get(Long id);
 
-  List<ClubDTO> getClubs(int offset, int limit);
+  List<ListClubsDTO> getClubs(int offset, int limit);
 
   List<ClubDTO> search(String q);
 

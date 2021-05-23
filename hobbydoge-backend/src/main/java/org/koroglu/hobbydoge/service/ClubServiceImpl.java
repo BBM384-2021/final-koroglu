@@ -4,13 +4,15 @@ import lombok.AllArgsConstructor;
 import org.koroglu.hobbydoge.controller.request.ClubRequest;
 import org.koroglu.hobbydoge.controller.request.NewClubRequest;
 import org.koroglu.hobbydoge.dto.mapper.ClubMapper;
+import org.koroglu.hobbydoge.dto.mapper.ListClubsMapper;
 import org.koroglu.hobbydoge.dto.model.ClubDTO;
+import org.koroglu.hobbydoge.dto.model.ListClubsDTO;
+import org.koroglu.hobbydoge.dto.model.ReviewDTO;
 import org.koroglu.hobbydoge.exception.RestClubDoesNotExistException;
 import org.koroglu.hobbydoge.exception.RestClubNameAlreadyExistException;
 import org.koroglu.hobbydoge.model.Club;
 import org.koroglu.hobbydoge.model.User;
 import org.koroglu.hobbydoge.repository.ClubRepository;
-import org.koroglu.hobbydoge.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -24,21 +26,24 @@ import java.util.stream.Collectors;
 public class ClubServiceImpl implements ClubService {
 
   private final ClubRepository clubRepository;
-  private final UserRepository userRepository;
+  private final ReviewService reviewService;
 
   @Override
   public ClubDTO get(Long id) {
 
     Club club = clubRepository.findById(id).orElseThrow(RestClubDoesNotExistException::new);
-    return ClubMapper.toClubDTO(club);
+
+    List<ReviewDTO> reviews = reviewService.getClubReviews(id);
+
+    return ClubMapper.toClubDTO(club).setReviews(reviews);
 
   }
 
   @Override
-  public List<ClubDTO> getClubs(int offset, int limit) {
+  public List<ListClubsDTO> getClubs(int offset, int limit) {
 
     return clubRepository.getAllClubs(offset, limit).stream()
-            .map(ClubMapper::toClubDTO).collect(Collectors.toList());
+            .map(ListClubsMapper::toListClubsDTO).collect(Collectors.toList());
 
   }
 
