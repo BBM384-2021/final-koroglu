@@ -1,6 +1,7 @@
 package org.koroglu.hobbydoge.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity(name = "users")
+@JsonIgnoreProperties(value = {"password", "roles", "authorities"})
 public class User {
 
   @EqualsAndHashCode.Include
@@ -40,6 +42,7 @@ public class User {
   private String email;
   private LocalDate dateOfBirth;
   private String profilePicture;
+  @JsonIgnore
   private String password;
   private Boolean isBanned = false;
   private Boolean isAnswered = false;
@@ -49,6 +52,7 @@ public class User {
   @ManyToMany
   Set<Club> enrolledClubs;
 
+  @JsonIgnore
   @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
   @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles;
