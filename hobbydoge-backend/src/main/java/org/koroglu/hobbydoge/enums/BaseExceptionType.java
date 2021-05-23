@@ -16,7 +16,9 @@ public enum BaseExceptionType {
   REST_CONFIRMATION_TOKEN_DOES_NOT_EXIST("Token does not exist."),
   REST_USER_ALREADY_CONFIRMED("User already confirmed."),
   REST_TOKEN_EXPIRED("Token expired."),
-  REST_TOKEN_NOT_VALID("Token is not valid.");
+  REST_TOKEN_NOT_VALID("Token is not valid."),
+  REST_USER_ALREADY_COMMENTED("User already commented."),
+  REST_USER_DONT_HAVE_PERMISSION("You don't have permission.");
 
   @Getter
   private final String message;
