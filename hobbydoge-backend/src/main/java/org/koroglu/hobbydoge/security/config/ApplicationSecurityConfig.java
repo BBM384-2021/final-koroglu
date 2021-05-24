@@ -32,8 +32,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
             .addFilterBefore(new AuthTokenFilter(userService, jwtUtils), UsernamePasswordAuthenticationFilter.class)
             .authorizeRequests()
             .antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**", "/swagger-resources").permitAll()
+            .antMatchers("/**").permitAll()
             .antMatchers("/api/v1/auth/**").permitAll()
-            .antMatchers("/api/v1/clubs**", "/api/v1/clubs/**", "/api/v1/clubs/**/**").permitAll()
+            .antMatchers("/api/v1/clubs**", "/api/v1/clubs/**", "/api/v1/clubs/**/**", "api/v1/subclubs/**", "api/v1/subclubs**", "api/v1/subclubs/**/**").permitAll()
             .anyRequest()
             .authenticated();
   }
