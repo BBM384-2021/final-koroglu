@@ -9,5 +9,7 @@ public interface SurveyQuestionRepository extends JpaRepository<SurveyQuestion, 
 
 
   List<SurveyQuestion> findSurveyQuestionsByClub_Id(Long clubId);
+  void deleteAllByClub_Id(Long clubId);
+  int countSurveyQuestionsByClub_Id(Long clubId);
 
 }
