@@ -37,15 +37,13 @@ public class Club {
   @ManyToMany
   private Set<User> members;
 
-  @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-  @JoinTable(name = "club_subclubs", joinColumns = @JoinColumn(name = "club_id"), inverseJoinColumns = @JoinColumn(name = "subclub_id"))
+  @OneToMany
   private Set<SubClub> subClubs;
 
   public Club(String name, String description, String picture) {
     this.name = name;
     this.description = description;
     this.picture = picture;
-    this.rating = 5.0;
     this.members = new HashSet<User>();
     this.subClubs = new HashSet<SubClub>();
   }

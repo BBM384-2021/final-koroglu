@@ -52,6 +52,9 @@ public class User {
   @ManyToMany
   Set<Club> enrolledClubs;
 
+  @ManyToMany(fetch = FetchType.EAGER)
+  Set<SubClub> enrolledSubClubs;
+
   @JsonIgnore
   @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
   @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
