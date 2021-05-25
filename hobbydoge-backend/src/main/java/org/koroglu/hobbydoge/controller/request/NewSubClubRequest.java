@@ -13,6 +13,10 @@ import javax.validation.constraints.Size;
 @Accessors(chain = true)
 @NoArgsConstructor
 public class NewSubClubRequest {
+
+  @NotNull(message = "Club Id cannot be empty.")
+  private Long clubId;
+
   @Size(min = 3, message = "Name should not be less than 3 characters.")
   @NotNull(message = "Name cannot be empty.")
   private String name;

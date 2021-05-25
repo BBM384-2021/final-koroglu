@@ -5,24 +5,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-import org.koroglu.hobbydoge.model.SubClub;
 
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @Accessors(chain = true)
-public class ClubDTO {
-
+public class EventDTO {
   private Long id;
-  private String name;
+  private String title;
   private String description;
-  private String picture;
-  private Double rating;
-  private Set<ClubUserDTO> members;
-  private Set<SubClub> subClubs;
-  private List<ReviewDTO> reviews;
+  private LocalDateTime time;
+  private Boolean isOnline;
+  private String address;
+  private int joinedUserCount;
 }

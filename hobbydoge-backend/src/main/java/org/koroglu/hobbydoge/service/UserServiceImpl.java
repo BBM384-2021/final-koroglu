@@ -5,8 +5,12 @@ import lombok.AllArgsConstructor;
 import org.koroglu.hobbydoge.controller.request.LoginRequest;
 import org.koroglu.hobbydoge.controller.request.RegisterRequest;
 import org.koroglu.hobbydoge.controller.request.ResetPasswordRequest;
+import org.koroglu.hobbydoge.dto.mapper.ListUsersMapper;
 import org.koroglu.hobbydoge.dto.mapper.LoginMapper;
+import org.koroglu.hobbydoge.dto.mapper.UserMapper;
+import org.koroglu.hobbydoge.dto.model.ListUsersDTO;
 import org.koroglu.hobbydoge.dto.model.LoginDTO;
+import org.koroglu.hobbydoge.dto.model.UserDTO;
 import org.koroglu.hobbydoge.exception.*;
 import org.koroglu.hobbydoge.model.*;
 import org.koroglu.hobbydoge.repository.ConfirmationTokenRepository;
@@ -23,10 +27,8 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -41,6 +43,16 @@ public class UserServiceImpl implements UserService {
   BCryptPasswordEncoder bCryptPasswordEncoder;
   JwtUtils jwtUtils;
 
+  @Override
+  public UserDTO getUser(Long id) {
+    return UserMapper.toUserDto(userRepository.findById(id).orElseThrow(RestUserNotFoundException::new));
+  }
+
+  @Override
+  public List<ListUsersDTO> getUsers(int offset, int limit) {
+    return userRepository.getAllUsers(offset, limit).stream()
+            .map(ListUsersMapper::toListUsersDTO).collect(Collectors.toList());
+  }
 
   public User getByEmail(String email) throws UsernameNotFoundException {
     return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Email not found."));

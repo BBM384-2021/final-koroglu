@@ -48,6 +48,5 @@ public class Club {
     this.rating = 5.0;
     this.members = new HashSet<User>();
     this.subClubs = new HashSet<SubClub>();
-
   }
 }
