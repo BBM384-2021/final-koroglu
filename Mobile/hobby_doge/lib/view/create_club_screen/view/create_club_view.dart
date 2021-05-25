@@ -8,6 +8,7 @@ import 'package:hobby_doge/core/components/warning_snack_bar.dart';
 import 'package:hobby_doge/core/init/lang/locale_keys.g.dart';
 import 'package:hobby_doge/core/init/theme/color_scheme.dart';
 import 'package:hobby_doge/view/create_club_screen/viewmodel/create_club_view_model.dart';
+import 'package:image_cropper/image_cropper.dart';
 import '../../../core/extensions/context_extension.dart';
 import 'package:firebase_picture_uploader/firebase_picture_uploader.dart';
 import '../../../core/extensions/string_extension.dart';
@@ -61,6 +62,8 @@ class CreateClubView extends StatelessWidget {
                                 maxImageCount: 1,
                                 imageManipulationSettings:
                                     const ImageManipulationSettings(
+                                  aspectRatio:
+                                      CropAspectRatio(ratioX: 37, ratioY: 23),
                                   enableCropping: true,
                                   compressQuality: 75,
                                 )),
