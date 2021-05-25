@@ -25,4 +25,14 @@ public class EventController {
     System.out.println(eventId);
     return ResponseEntity.ok().body(eventService.deleteEvent(eventId));
   }
+
+  @PostMapping("/{eventId}/join")
+  public ResponseEntity<?> joinEvent(@PathVariable Long eventId) {
+    return ResponseEntity.ok().body(eventService.joinEvent(eventId));
+  }
+
+  @DeleteMapping("/{eventId}/leave")
+  public ResponseEntity<?> leaveEvent(@PathVariable Long eventId) {
+    return ResponseEntity.ok().body(eventService.leaveEvent(eventId));
+  }
 }
