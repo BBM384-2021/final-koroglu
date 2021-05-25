@@ -9,9 +9,11 @@ import org.koroglu.hobbydoge.exception.RestUserAlreadyCommentedException;
 import org.koroglu.hobbydoge.exception.RestUserDontHavePermissionException;
 import org.koroglu.hobbydoge.model.Club;
 import org.koroglu.hobbydoge.model.Review;
+import org.koroglu.hobbydoge.model.SubClub;
 import org.koroglu.hobbydoge.model.User;
 import org.koroglu.hobbydoge.repository.ClubRepository;
 import org.koroglu.hobbydoge.repository.ReviewRepository;
+import org.koroglu.hobbydoge.repository.SubClubRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,7 @@ public class ReviewServiceImpl implements ReviewService {
 
   private final ReviewRepository reviewRepository;
   private final ClubRepository clubRepository;
+  private final SubClubRepository subClubRepository;
 
   @Override
   public List<ReviewDTO> getClubReviews(Long clubId) {
@@ -33,7 +36,7 @@ public class ReviewServiceImpl implements ReviewService {
 
   @Override
   public List<ReviewDTO> getSubClubReviews(Long subClubId) {
-    return reviewRepository.findBySubClub_IdAndIsClub(subClubId, false)
+    return reviewRepository.getSubClubReviews(subClubId)
             .stream().map(ReviewMapper::toReviewDTO).collect(Collectors.toList());
   }
 
@@ -45,7 +48,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     System.out.println(club.getMembers().contains(user));
 
-    if (club.getMembers().contains(user)) {
+    if (!club.getMembers().contains(user)) {
+      //TODO: Add new exception for here
       throw new RestUserAlreadyCommentedException();
     }
 
@@ -66,21 +70,22 @@ public class ReviewServiceImpl implements ReviewService {
 
   @Override
   public String addSubClubReview(Long subClubId, ReviewRequest reviewRequest) {
-//
-//    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//    Club club = clubRepository.findById(clubId).orElseThrow(RestClubDoesNotExistException::new);
-//
-//    Review review = new Review(
-//            reviewRequest.getComment(),
-//            reviewRequest.getRating(),
-//            true,
-//            club,
-//            null,
-//            user
-//    );
-//
-//    reviewRepository.save(review);
+
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    //TODO: Add new exception
+    SubClub subClub = subClubRepository.findById(subClubId).orElseThrow(RestClubDoesNotExistException::new);
+
+    Review review = new Review(
+            reviewRequest.getComment(),
+            reviewRequest.getRating(),
+            false,
+            null,
+            subClub,
+            user
+    );
+
+    reviewRepository.save(review);
 
     return "Review saved successfully.";
 
