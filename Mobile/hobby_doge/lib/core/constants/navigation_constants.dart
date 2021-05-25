@@ -17,4 +17,5 @@ class NavigationConstants {
   static const ADMIN_PANEL_VIEW = "/admin_panel";
   static const CREATE_CLUB_VIEW = "/create_club";
   static const FEED_VIEW = "/feed_view";
+  static const CLUB_VIEW = "/club_view";
 }
