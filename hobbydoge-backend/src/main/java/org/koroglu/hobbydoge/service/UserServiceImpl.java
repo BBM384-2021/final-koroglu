@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.koroglu.hobbydoge.controller.request.LoginRequest;
 import org.koroglu.hobbydoge.controller.request.RegisterRequest;
 import org.koroglu.hobbydoge.controller.request.ResetPasswordRequest;
+import org.koroglu.hobbydoge.controller.request.UpdateUserRequest;
 import org.koroglu.hobbydoge.dto.mapper.ListUsersMapper;
 import org.koroglu.hobbydoge.dto.mapper.LoginMapper;
 import org.koroglu.hobbydoge.dto.mapper.UserMapper;
@@ -52,6 +53,53 @@ public class UserServiceImpl implements UserService {
   public List<ListUsersDTO> getUsers(int offset, int limit) {
     return userRepository.getAllUsers(offset, limit).stream()
             .map(ListUsersMapper::toListUsersDTO).collect(Collectors.toList());
+  }
+
+  @Override
+  public UserDTO updateUser(Long userId, UpdateUserRequest updateUserRequest) {
+
+    User user = userRepository.findById(userId).orElseThrow(RestUserNotFoundException::new);
+
+    if (updateUserRequest.getName() != null) {
+      user.setName(updateUserRequest.getName());
+    }
+
+    if (updateUserRequest.getSurname() != null) {
+      user.setSurname(updateUserRequest.getSurname());
+    }
+
+    if (updateUserRequest.getUsername() != null) {
+      Optional<User> existingUsername = userRepository.findByUsername(updateUserRequest.getUsername());
+
+      if (existingUsername.isPresent()) throw new RestUsernameAlreadyExistException();
+
+      user.setUsername(updateUserRequest.getUsername());
+    }
+
+    if (updateUserRequest.getEmail() != null) {
+      Optional<User> existingUsername = userRepository.findByEmail(updateUserRequest.getEmail());
+
+      if (existingUsername.isPresent()) throw new RestEmailAlreadyExistException();
+
+      user.setEmail(updateUserRequest.getEmail());
+    }
+
+    if (updateUserRequest.getDateOfBirth() != null) {
+      user.setDateOfBirth(
+              LocalDate.parse(
+                      updateUserRequest.getDateOfBirth(),
+                      DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+      );
+    }
+
+    if (updateUserRequest.getProfilePicture() != null) {
+      user.setProfilePicture(updateUserRequest.getProfilePicture());
+    }
+
+    userRepository.save(user);
+
+    return UserMapper.toUserDto(user);
+
   }
 
   public User getByEmail(String email) throws UsernameNotFoundException {

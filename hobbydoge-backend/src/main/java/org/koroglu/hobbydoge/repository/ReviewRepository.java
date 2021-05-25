@@ -8,8 +8,9 @@ import java.util.List;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-  @Query(value = "SELECT * FROM reviews r WHERE r.is_club = true AND r.id = ?1", nativeQuery = true)
+  @Query(value = "SELECT * FROM reviews r WHERE r.is_club = true AND r.club_id = ?1", nativeQuery = true)
   List<Review> getClubReviews(Long clubId);
 
-  List<Review> findBySubClub_IdAndIsClub(Long subClub_id, Boolean isClub);
+  @Query(value = "SELECT * FROM reviews r WHERE r.is_club = false AND r.sub_club_id = ?1", nativeQuery = true)
+  List<Review> getSubClubReviews(Long subClubId);
 }

@@ -1,7 +1,6 @@
 package org.koroglu.hobbydoge.controller;
 
 import lombok.AllArgsConstructor;
-import org.koroglu.hobbydoge.controller.request.NewEventRequest;
 import org.koroglu.hobbydoge.controller.request.NewSubClubRequest;
 import org.koroglu.hobbydoge.controller.request.SubClubRequest;
 import org.koroglu.hobbydoge.service.EventService;
@@ -49,4 +48,8 @@ public class SubClubController {
     return ResponseEntity.ok().body(subClubService.leave(subClubId));
   }
 
+  @PostMapping("/{subClubId}/adminrequest")
+  public ResponseEntity<?> subClubAdminRequest(@PathVariable("subClubId") Long subClubId) {
+    return ResponseEntity.ok().body(subClubService.adminRequest(subClubId));
+  }
 }
