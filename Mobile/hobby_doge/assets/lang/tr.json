@@ -85,6 +85,9 @@
         "tooShortDescription":"Açıklama en az 15 karakterden oluşmalı.",
         "noImage":"Lütfen resim ekleyiniz."
     },
+    "viewClub":{
+        "clubName":"Kulüp İsmi"
+    },
     "feed":{
         "feed":"Akış"
     }

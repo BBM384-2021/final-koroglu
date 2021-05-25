@@ -91,6 +91,9 @@
 
 
     },
+    "viewClub":{
+        "clubName":"Club Name"
+    },
     "feed":{
         "feed":"Feed"
     }

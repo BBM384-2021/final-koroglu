@@ -75,6 +75,8 @@ abstract class  LocaleKeys {
   static const createClub_tooShortDescription = 'createClub.tooShortDescription';
   static const createClub_noImage = 'createClub.noImage';
   static const createClub = 'createClub';
+  static const viewClub_clubName = 'viewClub.clubName';
+  static const viewClub = 'viewClub';
   static const feed_feed = 'feed.feed';
   static const feed = 'feed';
 
