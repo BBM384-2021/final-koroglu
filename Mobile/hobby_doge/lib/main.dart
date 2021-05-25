@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       title: 'HobbyDoge',
-      initialRoute: NavigationConstants.LOGIN_VIEW,
+      initialRoute: NavigationConstants.CLUB_VIEW,
       debugShowCheckedModeBanner: false,
     );
   }
