@@ -16,7 +16,9 @@ public class ClubMapper {
             .setMembers(club.getMembers()
                     .stream().map(ClubUserMapper::toClubUserDTO)
                     .collect(Collectors.toSet()))
-            .setSubClubs(club.getSubClubs());
+            .setSubClubs(club.getSubClubs()
+                    .stream().map(ListSubClubsMapper::toListSubClubsDTO)
+                    .collect(Collectors.toList()));
 
   }
 

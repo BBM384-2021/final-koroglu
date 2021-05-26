@@ -5,19 +5,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.koroglu.hobbydoge.model.Club;
 
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @Accessors(chain = true)
-public class ReviewDTO {
+public class SurveyQuestionDTO {
 
   private Long id;
-  private String comment;
-  private Double rating;
-  private String username;
-
+  private String question;
+  private boolean isIncrease;
+  private Long clubId;
 }

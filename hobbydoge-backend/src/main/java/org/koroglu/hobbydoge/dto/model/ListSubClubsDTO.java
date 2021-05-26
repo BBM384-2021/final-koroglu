@@ -6,18 +6,14 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @Accessors(chain = true)
-public class ReviewDTO {
-
+public class ListSubClubsDTO {
   private Long id;
-  private String comment;
+  private String name;
+  private String picture;
   private Double rating;
-  private String username;
-
 }

@@ -4,11 +4,15 @@ import lombok.AllArgsConstructor;
 import org.koroglu.hobbydoge.controller.request.NewEventRequest;
 import org.koroglu.hobbydoge.dto.mapper.EventMapper;
 import org.koroglu.hobbydoge.dto.model.EventDTO;
+import org.koroglu.hobbydoge.exception.RestEventDoesNotExistException;
 import org.koroglu.hobbydoge.exception.RestSubClubDoesNotExistException;
+import org.koroglu.hobbydoge.exception.RestUserAlreadyJoinedException;
 import org.koroglu.hobbydoge.model.Event;
 import org.koroglu.hobbydoge.model.SubClub;
+import org.koroglu.hobbydoge.model.User;
 import org.koroglu.hobbydoge.repository.EventRepository;
 import org.koroglu.hobbydoge.repository.SubClubRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -61,6 +65,36 @@ public class EventServiceImpl implements EventService {
     eventRepository.delete(event);
 
     return "Event deleted successfully.";
+  }
+
+  @Override
+  public String joinEvent(Long eventId) {
+
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    Event event = eventRepository.findById(eventId).orElseThrow(RestEventDoesNotExistException::new);
+
+    if (event.getJoinedUsers().contains(user)) throw new RestUserAlreadyJoinedException();
+
+    event.getJoinedUsers().add(user);
+
+    eventRepository.save(event);
+
+    return "Successfully joined.";
+
+  }
+
+  @Override
+  public String leaveEvent(Long eventId) {
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    Event event = eventRepository.findById(eventId).orElseThrow(RestEventDoesNotExistException::new);
+
+    event.getJoinedUsers().remove(user);
+
+    eventRepository.save(event);
+
+    return "Successfully left.";
   }
 
 }

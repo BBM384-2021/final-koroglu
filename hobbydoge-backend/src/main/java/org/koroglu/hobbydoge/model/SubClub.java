@@ -1,5 +1,6 @@
 package org.koroglu.hobbydoge.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,9 +15,11 @@ import java.util.Set;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
+@JsonIgnoreProperties({"club"})
 @Entity(name = "subclubs")
-public class SubClub{
+public class SubClub {
 
+  @EqualsAndHashCode.Include
   @SequenceGenerator(
           name = "subClub_sequence",
           sequenceName = "subClub_sequence",
@@ -28,13 +31,11 @@ public class SubClub{
   )
   @Id
   private Long id;
-
   private String name;
   private String description;
   private String picture;
   private Double rating;
   private LocalDateTime lastActive;
-
 
   @OneToOne
   private User admin;
@@ -42,11 +43,23 @@ public class SubClub{
   @ManyToMany
   private Set<User> members;
 
-  public SubClub(String name,String description,String picture){
-        this.name = name ;
-        this.description = description;
-        this.picture = picture;
-        this.members = new HashSet<>();
-}
+  @OneToMany
+  private Set<Event> events;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Club club;
+
+  @OneToMany
+  private Set<User> adminRequests;
+
+  public SubClub(String name, String description, String picture, Club club) {
+    this.name = name;
+    this.description = description;
+    this.picture = picture;
+    this.club = club;
+    this.members = new HashSet<>();
+    this.events = new HashSet<>();
+    this.adminRequests = new HashSet<>();
+  }
 
 }

@@ -49,8 +49,11 @@ public class User {
   private Boolean isAdmin = false;
   private Boolean isConfirmed = false;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   Set<Club> enrolledClubs;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  Set<SubClub> enrolledSubClubs;
 
   @JsonIgnore
   @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)

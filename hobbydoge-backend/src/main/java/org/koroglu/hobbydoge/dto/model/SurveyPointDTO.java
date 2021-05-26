@@ -6,18 +6,19 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.UUID;
+
 
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @Accessors(chain = true)
-public class ReviewDTO {
+public class SurveyPointDTO {
 
   private Long id;
-  private String comment;
-  private Double rating;
-  private String username;
-
+  private Long clubId;
+  private Integer point;
+  private Date date;
 }

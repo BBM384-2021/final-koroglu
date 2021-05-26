@@ -5,19 +5,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-
-import java.time.LocalDateTime;
+import org.koroglu.hobbydoge.model.RequestType;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @Accessors(chain = true)
-public class ReviewDTO {
-
+public class RequestDTO {
   private Long id;
-  private String comment;
-  private Double rating;
   private String username;
-
+  private String body;
+  private RequestType type;
 }

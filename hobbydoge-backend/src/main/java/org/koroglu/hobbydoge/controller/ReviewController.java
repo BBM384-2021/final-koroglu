@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("api/v1/reviews")
 @AllArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("api/v1/reviews")
 public class ReviewController {
 
   private final ReviewService reviewService;

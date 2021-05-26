@@ -13,9 +13,11 @@ import org.koroglu.hobbydoge.exception.RestClubNameAlreadyExistException;
 import org.koroglu.hobbydoge.model.Club;
 import org.koroglu.hobbydoge.model.User;
 import org.koroglu.hobbydoge.repository.ClubRepository;
+import org.koroglu.hobbydoge.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +29,7 @@ public class ClubServiceImpl implements ClubService {
 
   private final ClubRepository clubRepository;
   private final ReviewService reviewService;
+  private final UserRepository userRepository;
 
   @Override
   public ClubDTO get(Long id) {
@@ -69,18 +72,12 @@ public class ClubServiceImpl implements ClubService {
             newClubRequest.getPicture()
     );
 
-    return ClubMapper.toClubDTO(clubRepository.save(club));
+    return ClubMapper.toClubDTO(clubRepository.save(club)).setReviews(new ArrayList<>());
   }
 
   public ClubDTO update(Long id, ClubRequest clubRequest) {
 
-    Optional<Club> optionalClub = clubRepository.findById(id);
-
-    if (!optionalClub.isPresent()) {
-      throw new RestClubDoesNotExistException();
-    }
-
-    Club club = optionalClub.get();
+    Club club = clubRepository.findById(id).orElseThrow(RestClubDoesNotExistException::new);
 
     if (clubRequest.getName() != null) {
       club.setName(clubRequest.getName());
@@ -123,7 +120,11 @@ public class ClubServiceImpl implements ClubService {
 
     Club club = clubRepository.findById(id).orElseThrow(RestClubDoesNotExistException::new);
 
+    user.getEnrolledClubs().add(club);
+
     club.getMembers().add(user);
+
+    userRepository.save(user);
 
     clubRepository.save(club);
 
@@ -136,7 +137,12 @@ public class ClubServiceImpl implements ClubService {
     User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
     Club club = clubRepository.findById(id).orElseThrow(RestClubDoesNotExistException::new);
+
     club.getMembers().remove(user);
+
+    user.getEnrolledClubs().remove(club);
+
+    userRepository.save(user);
 
     clubRepository.save(club);
 

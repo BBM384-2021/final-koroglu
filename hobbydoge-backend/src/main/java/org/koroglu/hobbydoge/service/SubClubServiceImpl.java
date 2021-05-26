@@ -4,12 +4,16 @@ import lombok.AllArgsConstructor;
 import org.koroglu.hobbydoge.controller.request.NewSubClubRequest;
 import org.koroglu.hobbydoge.controller.request.SubClubRequest;
 import org.koroglu.hobbydoge.dto.mapper.SubClubMapper;
+import org.koroglu.hobbydoge.dto.model.ReviewDTO;
 import org.koroglu.hobbydoge.dto.model.SubClubDTO;
 import org.koroglu.hobbydoge.exception.RestClubDoesNotExistException;
 import org.koroglu.hobbydoge.exception.RestSubClubDoesNotExistException;
 import org.koroglu.hobbydoge.exception.RestSubClubNameAlreadyExistException;
+import org.koroglu.hobbydoge.exception.RestUserNotFoundException;
+import org.koroglu.hobbydoge.model.Club;
 import org.koroglu.hobbydoge.model.SubClub;
 import org.koroglu.hobbydoge.model.User;
+import org.koroglu.hobbydoge.repository.ClubRepository;
 import org.koroglu.hobbydoge.repository.SubClubRepository;
 import org.koroglu.hobbydoge.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,105 +21,143 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class SubClubServiceImpl implements SubClubService {
-    private final SubClubRepository subClubRepository;
-    private final UserRepository userRepository;
-    @Override
-    public SubClubDTO get(Long id){
-        SubClub subClub = subClubRepository.findById(id).orElseThrow(RestSubClubDoesNotExistException::new);
-        return SubClubMapper.toSubClubDTO(subClub);
 
-    }
-    @Override
-    public List<SubClubDTO> getSubClub(int offset, int limit) {
-        return subClubRepository.getAllSubClubs(offset,limit).stream().map(SubClubMapper::toSubClubDTO).collect(Collectors.toList());
-    }
+  private final ClubRepository clubRepository;
+  private final SubClubRepository subClubRepository;
+  private final UserRepository userRepository;
+  private final ReviewService reviewService;
 
-    @Override
-    public List<SubClubDTO> search(String q) {
-        return subClubRepository.findByNameContainingIgnoreCase(q).stream().map(SubClubMapper::toSubClubDTO).collect(Collectors.toList());
-    }
+  @Override
+  public SubClubDTO get(Long id) {
+    SubClub subClub = subClubRepository.findById(id).orElseThrow(RestSubClubDoesNotExistException::new);
 
-    @Override
-    public SubClubDTO create(NewSubClubRequest newSubClubRequest) {
-        Optional<SubClub> optionalSubClub = subClubRepository.findByName(newSubClubRequest.getName());
-        if(optionalSubClub.isPresent()){
-            throw new RestSubClubNameAlreadyExistException();
-        }
-        SubClub subClub = new SubClub(
-                newSubClubRequest.getName(), newSubClubRequest.getDescription(), newSubClubRequest.getDescription()
-        );
-        return SubClubMapper.toSubClubDTO(subClubRepository.save(subClub));
+    List<ReviewDTO> reviews = reviewService.getSubClubReviews(id);
+
+    return SubClubMapper.toSubClubDTO(subClub).setReviews(reviews);
+  }
+
+  @Override
+  public SubClubDTO create(NewSubClubRequest newSubClubRequest) {
+
+    Club club = clubRepository.findById(newSubClubRequest.getClubId()).orElseThrow(RestClubDoesNotExistException::new);
+
+    for (SubClub subClub : club.getSubClubs()) {
+      if (subClub.getName().equals(newSubClubRequest.getName())) {
+        throw new RestSubClubNameAlreadyExistException();
+      }
     }
 
-    @Override
-    public SubClubDTO update(Long id, SubClubRequest subClubRequest) {
-        Optional<SubClub> optionalSubClub = subClubRepository.findById(id);
-        if (optionalSubClub.isEmpty()) {
-            throw new RestClubDoesNotExistException();
-        }
-        SubClub subClub = optionalSubClub.get();
+    SubClub subClub = new SubClub(newSubClubRequest.getName(), newSubClubRequest.getDescription(), newSubClubRequest.getPicture(), club);
 
-        if (subClubRequest.getName() != null) {
-            subClub.setName(subClubRequest.getName());
-        }
+    subClubRepository.save(subClub);
 
-        if (subClubRequest.getDescription() != null) {
-            subClub.setDescription(subClubRequest.getDescription());
-        }
+    club.getSubClubs().add(subClub);
 
-        if (subClubRequest.getPicture() != null) {
-            subClub.setPicture(subClubRequest.getPicture());
-        }
+    clubRepository.save(club);
 
-        return SubClubMapper.toSubClubDTO(subClubRepository.save(subClub));
+    return SubClubMapper.toSubClubDTO(subClub);
+  }
 
+  @Override
+  public SubClubDTO update(Long id, SubClubRequest subClubRequest) {
+
+    SubClub subClub = subClubRepository.findById(id).orElseThrow(RestSubClubDoesNotExistException::new);
+
+
+    if (subClubRequest.getName() != null) {
+      subClub.setName(subClubRequest.getName());
     }
 
-    @Override
-    public HashMap<String, String> delete(Long id) {
-        Optional<SubClub> optionalSubClub = subClubRepository.findById(id);
-
-        if (optionalSubClub.isEmpty()) {
-            throw new RestClubDoesNotExistException();
-        }
-        HashMap<String, String> response = new HashMap<>();
-        response.put("message", String.format("Sub Club %s deleted succesfully.", optionalSubClub.get().getName()));
-        subClubRepository.delete(optionalSubClub.get());
-        return response;
+    if (subClubRequest.getDescription() != null) {
+      subClub.setDescription(subClubRequest.getDescription());
     }
 
-    @Override
-    public String join(Long id) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-
-        SubClub subClub = subClubRepository.findById(id).orElseThrow(RestClubDoesNotExistException::new);
-
-        subClub.getMembers().add(user);
-
-        subClubRepository.save(subClub);
-
-        return String.format("User with ID: %d joined to the %s sub club successfully.", user.getId(), subClub.getName());
+    if (subClubRequest.getPicture() != null) {
+      subClub.setPicture(subClubRequest.getPicture());
     }
 
-    @Override
-    public String leave(Long id) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    return SubClubMapper.toSubClubDTO(subClubRepository.save(subClub));
 
-        SubClub subClub = subClubRepository.findById(id).orElseThrow(RestClubDoesNotExistException::new);
-        subClub.getMembers().remove(user);
+  }
 
-        subClubRepository.save(subClub);
+  @Override
+  public HashMap<String, String> delete(Long id) {
 
-        return String.format("User with ID: %d left the %s sub club successfully.", user.getId(), subClub.getName());
+    SubClub subClub = subClubRepository.findById(id).orElseThrow(RestSubClubDoesNotExistException::new);
 
-    }
+    HashMap<String, String> response = new HashMap<>();
+
+    response.put("message", String.format("Sub Club %s deleted successfully.", subClub.getName()));
+
+    subClubRepository.delete(subClub);
+
+    return response;
+  }
+
+  @Override
+  public String join(Long id) {
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    SubClub subClub = subClubRepository.findById(id).orElseThrow(RestSubClubDoesNotExistException::new);
+
+    Club club = clubRepository.findById(subClub.getClub().getId()).orElseThrow(RestClubDoesNotExistException::new);
+
+    //TODO: Add new exception for user not in club.
+    if (!club.getMembers().contains(user)) throw new RestUserNotFoundException();
+
+    //TODO: Add user in subclub check.
+
+    subClub.getMembers().add(user);
+
+    subClubRepository.save(subClub);
+
+    user.getEnrolledSubClubs().add(subClub);
+
+    userRepository.save(user);
+
+    return String.format("User with ID: %d joined to the %s sub club successfully.", user.getId(), subClub.getName());
+  }
+
+  @Override
+  public String leave(Long id) {
+
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    SubClub subClub = subClubRepository.findById(id).orElseThrow(RestSubClubDoesNotExistException::new);
+
+    subClub.getMembers().remove(user);
+
+    subClubRepository.save(subClub);
+
+    user.getEnrolledSubClubs().remove(subClub);
+
+    userRepository.save(user);
+
+    return String.format("User with ID: %d left the %s sub club successfully.", user.getId(), subClub.getName());
+
+  }
+
+  @Override
+  public String adminRequest(Long id) {
+
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    SubClub subClub = subClubRepository.findById(id).orElseThrow(RestSubClubDoesNotExistException::new);
+
+    //TODO: Add an exception for this.
+    if (!subClub.getMembers().contains(user)) throw new RestUserNotFoundException();
+
+    subClub.getAdminRequests().add(user);
+
+    subClubRepository.save(subClub);
+
+    return "Request added.";
+
+  }
 
 
 }

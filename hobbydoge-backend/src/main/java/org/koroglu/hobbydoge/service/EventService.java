@@ -9,4 +9,8 @@ public interface EventService {
 
   String deleteEvent(Long eventId);
 
+  String joinEvent(Long eventId);
+
+  String leaveEvent(Long eventId);
+
 }
