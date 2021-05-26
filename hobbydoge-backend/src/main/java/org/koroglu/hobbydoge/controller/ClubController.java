@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 
 @RestController
 @RequestMapping("api/v1/clubs")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @AllArgsConstructor
 public class ClubController {
 

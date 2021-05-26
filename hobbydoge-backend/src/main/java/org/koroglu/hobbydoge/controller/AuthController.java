@@ -14,6 +14,7 @@ import java.text.ParseException;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("api/v1/auth")
 public class AuthController {
 
@@ -39,4 +40,11 @@ public class AuthController {
   public ResponseEntity<?> resetPassword(@RequestBody @Valid ResetPasswordRequest resetPasswordRequest) {
     return ResponseEntity.ok(userService.resetPassword(resetPasswordRequest));
   }
+
+  @GetMapping("")
+  public ResponseEntity<?> getUser(@RequestParam(value = "token") String token) {
+    System.out.println(token);
+    return ResponseEntity.ok(userService.getUserFromToken(token));
+  }
+
 }

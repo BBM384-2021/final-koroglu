@@ -30,4 +30,6 @@ public interface UserService {
 
   String resetPassword(ResetPasswordRequest resetPasswordRequest);
 
+  UserDTO getUserFromToken(String token);
+
 }

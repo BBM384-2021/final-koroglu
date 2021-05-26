@@ -1,5 +1,7 @@
 package org.koroglu.hobbydoge.service;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import lombok.AllArgsConstructor;
 import org.koroglu.hobbydoge.controller.request.LoginRequest;
@@ -245,6 +247,22 @@ public class UserServiceImpl implements UserService {
     passwordResetTokenRepository.updateResetedAt(resetPasswordRequest.getToken(), LocalDateTime.now());
 
     return "Password changed.";
+  }
+
+  @Override
+  public UserDTO getUserFromToken(String token) {
+    Jws<Claims> claimsJws = Jwts.parserBuilder()
+            .setSigningKey(jwtUtils.secretKey())
+            .build()
+            .parseClaimsJws(token);
+
+    Claims body = claimsJws.getBody();
+
+    String email = body.getSubject();
+
+    User user = getByEmail(email);
+
+    return UserMapper.toUserDto(user);
   }
 
   public int enableUser(Long id) {
