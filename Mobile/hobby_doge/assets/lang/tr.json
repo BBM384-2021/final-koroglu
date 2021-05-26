@@ -73,5 +73,22 @@
             "resetCodeExplenation":"Eğer girdiğin email adresi kayıtlı ise sıfırlama kodu gönderildi.",
             "resetPassword":"Parolayı Sıfırla"
         }
+    },
+    "createClub":{
+        "createClub":"Kulüp Oluştur",
+        "clubName":"Kulüp İsmi",
+        "description":"Açıklama",
+        "uploadImage":"Resim Yükle",
+        "clubIsExist":"Bu isimde bir kulüp zaten bulunmaktadır.",
+        "commonError":"Bir hata oluştu. Lütfen kontrol edip tekrar deneyiniz.",
+        "tooShortName":"Kulüp ismi en az 3 karakterden oluşmalı.",
+        "tooShortDescription":"Açıklama en az 15 karakterden oluşmalı.",
+        "noImage":"Lütfen resim ekleyiniz."
+    },
+    "viewClub":{
+        "clubName":"Kulüp İsmi"
+    },
+    "feed":{
+        "feed":"Akış"
     }
     }

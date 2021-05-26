@@ -13,4 +13,9 @@ class NavigationConstants {
   static const FORGOT_PASSWORD_SET_PASSWORD_VIEW =
       "/forgot_password_set_password_view";
   static const HOME_VIEW = "/home";
+  static const ALL_CLUBS_VIEW = "/all_clubs_view";
+  static const ADMIN_PANEL_VIEW = "/admin_panel";
+  static const CREATE_CLUB_VIEW = "/create_club";
+  static const FEED_VIEW = "/feed_view";
+  static const CLUB_VIEW = "/club_view";
 }

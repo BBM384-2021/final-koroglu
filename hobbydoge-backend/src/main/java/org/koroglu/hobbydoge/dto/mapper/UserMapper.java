@@ -17,7 +17,7 @@ public class UserMapper {
             .setIsBanned(user.getIsBanned())
             .setIsAnswered(user.getIsAnswered())
             .setIsAdmin(user.getIsAdmin())
-            .setIsVerified(user.getIsVerified());
+            .setIsConfirmed(user.getIsConfirmed());
   }
 
 }

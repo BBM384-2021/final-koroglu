@@ -65,5 +65,19 @@ abstract class  LocaleKeys {
   static const forgotPassword_enterResetCode_resetPassword = 'forgotPassword.enterResetCode.resetPassword';
   static const forgotPassword_enterResetCode = 'forgotPassword.enterResetCode';
   static const forgotPassword = 'forgotPassword';
+  static const createClub_createClub = 'createClub.createClub';
+  static const createClub_clubName = 'createClub.clubName';
+  static const createClub_description = 'createClub.description';
+  static const createClub_uploadImage = 'createClub.uploadImage';
+  static const createClub_clubIsExist = 'createClub.clubIsExist';
+  static const createClub_commonError = 'createClub.commonError';
+  static const createClub_tooShortName = 'createClub.tooShortName';
+  static const createClub_tooShortDescription = 'createClub.tooShortDescription';
+  static const createClub_noImage = 'createClub.noImage';
+  static const createClub = 'createClub';
+  static const viewClub_clubName = 'viewClub.clubName';
+  static const viewClub = 'viewClub';
+  static const feed_feed = 'feed.feed';
+  static const feed = 'feed';
 
 }

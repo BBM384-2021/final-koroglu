@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/constants/app_constants.dart';
 import 'core/constants/navigation_constants.dart';
@@ -11,6 +13,7 @@ import 'core/init/theme/app_theme_light.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await Firebase.initializeApp();
 
   runApp(
     EasyLocalization(
@@ -32,7 +35,8 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       title: 'HobbyDoge',
-      initialRoute: NavigationConstants.SPLASH_VIEW,
+      initialRoute: NavigationConstants.CLUB_VIEW,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

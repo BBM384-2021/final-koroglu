@@ -1,5 +1,7 @@
 package org.koroglu.hobbydoge.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,11 +17,13 @@ import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity(name = "users")
+@JsonIgnoreProperties(value = {"password", "roles", "authorities"})
 public class User {
 
+  @EqualsAndHashCode.Include
   @SequenceGenerator(
           name = "user_sequence",
           sequenceName = "user_sequence",
@@ -38,19 +42,20 @@ public class User {
   private String email;
   private LocalDate dateOfBirth;
   private String profilePicture;
+  @JsonIgnore
   private String password;
   private Boolean isBanned = false;
   private Boolean isAnswered = false;
   private Boolean isAdmin = false;
-  private Boolean isVerified = false;
+  private Boolean isConfirmed = false;
 
-  @ManyToMany
-  @JoinTable(
-          name = "enroll_club",
-          joinColumns = @JoinColumn(name = "user_id"),
-          inverseJoinColumns = @JoinColumn(name = "club_id"))
+  @ManyToMany(fetch = FetchType.EAGER)
   Set<Club> enrolledClubs;
 
+  @ManyToMany(fetch = FetchType.EAGER)
+  Set<SubClub> enrolledSubClubs;
+
+  @JsonIgnore
   @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
   @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles;
@@ -73,4 +78,17 @@ public class User {
     this.profilePicture = profilePicture;
   }
 
+//  @Override
+//  public int hashCode() {
+//    return this.id.hashCode();
+//  }
+//
+//  @Override
+//  public boolean equals(Object obj) {
+//    if (!(obj instanceof User)) {
+//      return false;
+//    }
+//    User other = (User) obj;
+//    return this.id.equals(other.getId());
+//  }
 }

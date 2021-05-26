@@ -31,8 +31,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                                   FilterChain filterChain) throws ServletException, IOException {
 
     String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-
-    if ((authorizationHeader == null || authorizationHeader.isEmpty()) || !authorizationHeader.startsWith(jwtUtils.getTokenPrefix())) {
+    if (authorizationHeader == null || authorizationHeader.isEmpty() || !authorizationHeader.startsWith(jwtUtils.getTokenPrefix())) {
       filterChain.doFilter(request, response);
       return;
     }
@@ -48,8 +47,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
       Claims body = claimsJws.getBody();
 
       String email = body.getSubject();
-
-      System.out.println(email);
 
       User user = userService.getByEmail(email);
 

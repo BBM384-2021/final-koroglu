@@ -77,5 +77,24 @@
             "resetCodeExplenation":"Please enter the reset code we sent to your email address.",
             "resetPassword":"Reset Password"
         }
+    },
+    "createClub":{
+        "createClub":"Create Club",
+        "clubName":"Club Name",
+        "description":"Description",
+        "uploadImage":"Upload Image",
+        "clubIsExist":"A club with this name already exist.",
+        "commonError":"Please check the parameters.",
+        "tooShortName":"Club name must be at lease 3 characters.",
+        "tooShortDescription":"Description must be at lease 15 characters.",
+        "noImage":"Please upload an image."
+
+
+    },
+    "viewClub":{
+        "clubName":"Club Name"
+    },
+    "feed":{
+        "feed":"Feed"
     }
 }

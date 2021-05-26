@@ -5,9 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-import org.koroglu.hobbydoge.model.SubClub;
-import org.koroglu.hobbydoge.model.User;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -22,6 +21,7 @@ public class ClubDTO {
   private String description;
   private String picture;
   private Double rating;
-  private Set<User> members;
-  private Set<SubClub> subClubs;
+  private Set<ClubUserDTO> members;
+  private List<ListSubClubsDTO> subClubs;
+  private List<ReviewDTO> reviews;
 }
