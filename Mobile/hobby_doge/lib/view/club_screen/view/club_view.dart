@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:hobby_doge/core/base/view/base_view.dart';
 import 'package:hobby_doge/core/components/app_bar_with_back_leading.dart';
 import 'package:hobby_doge/core/init/lang/locale_keys.g.dart';
+import 'package:hobby_doge/core/init/network/network_service.dart';
+import 'package:hobby_doge/core/init/theme/color_scheme.dart';
+import 'package:hobby_doge/view/club_screen/model/OneClub.dart';
 import 'package:hobby_doge/view/club_screen/viewmodel/club_view_model.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../../core/extensions/string_extension.dart';
@@ -31,90 +36,209 @@ class _ClubViewState extends State<ClubView>
           model.init();
         },
         onPageBuilder: (BuildContext context, ClubViewModel viewmodel) =>
-            DefaultTabController(
-              length: 2,
-              child: Scaffold(
-                extendBodyBehindAppBar: true,
-                appBar: appBarWithBackLeading(context, ""),
-                body: Column(
-                  children: <Widget>[
-                    // construct the profile details widget here
-                    Container(
-                      width: context.width,
-                      height: context.height * 0.3,
-                      child: Image.network(
-                          'https://firebasestorage.googleapis.com/v0/b/hobbydoge.appspot.com/o/Uploads%2F1621670766657_800.jpg?alt=media&token=c7b0e8a5-5c7b-49cb-a37f-fb9d2f6e47c1',
-                          fit: BoxFit.fitWidth),
-                    ),
+            FutureBuilder<OneClub>(
+                future: viewmodel.club,
+                builder:
+                    (BuildContext context, AsyncSnapshot<OneClub> snapshot) {
+                  print(snapshot.error);
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
 
-                    // the tab bar with two items
-                    Container(
-                        height: 70,
-                        child: Row(
-                          children: [
-                            Spacer(
-                              flex: 1,
-                            ),
-                            Expanded(
-                                child: Text(
-                                  "Club Name",
-                                  style: TextStyle(
-                                      color: Color(0xff26342B),
-                                      fontSize: context.height * 0.04),
+                      default:
+                        return DefaultTabController(
+                          length: 2,
+                          child: Scaffold(
+                            extendBodyBehindAppBar: true,
+                            appBar: appBarWithBackLeading(context, ""),
+                            body: Column(
+                              children: <Widget>[
+                                // construct the profile details widget here
+                                Container(
+                                  width: context.width,
+                                  height: context.height * 0.3,
+                                  child: Image.network(
+                                      'https://firebasestorage.googleapis.com/v0/b/hobbydoge.appspot.com/o/Uploads%2F1621670766657_800.jpg?alt=media&token=c7b0e8a5-5c7b-49cb-a37f-fb9d2f6e47c1',
+                                      fit: BoxFit.fitWidth),
                                 ),
-                                flex: 20)
-                          ],
-                        )),
-                    Container(
-                      height: 50,
-                      child: TabBar(
-                        indicatorColor: Color(0xff6AC88F),
-                        tabs: [
-                          Text(
-                            "Sub Clubs",
-                            style: TextStyle(color: Color(0xff6AC88F)),
-                          ),
-                          Text("About",
-                              style: TextStyle(color: Color(0xff6AC88F))),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      height: context.height * 0.15,
-                      child: Text(
-                        "Introduction of club",
-                        style: TextStyle(color: Color(0xff667E85)),
-                      ),
-                    ),
 
-                    // create widgets for each tab bar here
-                    Expanded(
-                      child: TabBarView(
-                        children: [
-                          // first tab bar view widget
-                          SingleChildScrollView(
-                            child: Center(
-                              child: Text(
-                                'Bike',
-                              ),
+                                // the tab bar with two items
+                                clubNameTitle(context, snapshot.data),
+                                tabBarFields(snapshot.data),
+
+                                // create widgets for each tab bar here
+                                Expanded(
+                                  child: TabBarView(
+                                    children: [
+                                      // first tab bar view widget
+                                      subClubList(snapshot.data),
+
+                                      // second tab bar viiew widget
+                                      aboutField(context, snapshot.data),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
+                        );
+                    }
+                  }
+                }));
+  }
 
-                          // second tab bar viiew widget
-                          SingleChildScrollView(
-                            child: Center(
-                              child: Text(
-                                'Car',
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+  Column aboutField(BuildContext context, OneClub club) {
+    return Column(
+      children: [
+        Container(
+          alignment: Alignment.center,
+          height: context.height * 0.15,
+          child: Text(
+            club.description,
+            style: TextStyle(color: Color(0xff667E85)),
+          ),
+        ),
+        Container(
+            height: context.height * 0.1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(club.reviews.length.toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: context.height * 0.02)),
+                TextButton.icon(
+                    icon: Icon(
+                      Icons.add_circle_outline,
+                      color: AppColorScheme.instance.greenLight3,
                     ),
-                  ],
+                    onPressed: () {},
+                    label: Text(
+                      "Post a Review ",
+                      style: TextStyle(
+                          color: AppColorScheme.instance.greenLight3,
+                          fontSize: context.height * 0.02,
+                          fontWeight: FontWeight.w500),
+                    ))
+              ],
+            )),
+        SingleChildScrollView(
+          child: Container(
+            height: context.height * 0.25,
+            child: ListView.builder(
+                itemCount: club.reviews.length,
+                itemBuilder: (context, index) {
+                  if (club.subClubs.length > 0) {
+                    return ListTile(
+                      title: Text(club.reviews[index].username),
+                      trailing: TextButton.icon(
+                          icon: Icon(
+                            Icons.add_circle_outline,
+                            color: AppColorScheme.instance.greenLight3,
+                          ),
+                          onPressed: () {},
+                          label: Text(
+                            "Join ",
+                            style: TextStyle(
+                                color: AppColorScheme.instance.greenLight3,
+                                fontSize: context.height * 0.02,
+                                fontWeight: FontWeight.w500),
+                          )),
+                    );
+                  } else {
+                    return Text("ads");
+                  }
+                }),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Column subClubList(OneClub club) {
+    return Column(
+      children: [
+        Container(
+          child: SingleChildScrollView(
+            child: Container(
+              height: context.height * 0.5,
+              child: ListView.builder(
+                  itemCount: club.subClubs.length,
+                  itemBuilder: (context, index) {
+                    if (club.subClubs.length > 0) {
+                      print(club.subClubs[index]);
+                      return ListTile(
+                        title: Text(club.subClubs[index].name),
+                        leading: CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            club.subClubs[index].picture,
+                          ),
+                        ),
+                        trailing: TextButton.icon(
+                            icon: Icon(
+                              Icons.add_circle_outline,
+                              color: AppColorScheme.instance.greenLight3,
+                            ),
+                            onPressed: () {},
+                            label: Text(
+                              "Join ",
+                              style: TextStyle(
+                                  color: AppColorScheme.instance.greenLight3,
+                                  fontSize: context.height * 0.02,
+                                  fontWeight: FontWeight.w500),
+                            )),
+                      );
+                    } else {
+                      return Text("ads");
+                    }
+                  }),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Container tabBarFields(OneClub club) {
+    return Container(
+      height: 50,
+      child: TabBar(
+        indicatorColor: Color(0xff6AC88F),
+        tabs: [
+          Text(
+            club.subClubs.length.toString() + " Sub Clubs",
+            style: TextStyle(color: Color(0xff6AC88F)),
+          ),
+          Text("About", style: TextStyle(color: Color(0xff6AC88F))),
+        ],
+      ),
+    );
+  }
+
+  Container clubNameTitle(BuildContext context, OneClub club) {
+    return Container(
+        height: 70,
+        child: Row(
+          children: [
+            Spacer(
+              flex: 1,
+            ),
+            Expanded(
+                child: Text(
+                  club.name,
+                  style: TextStyle(
+                      color: Color(0xff26342B),
+                      fontSize: context.height * 0.04),
                 ),
-              ),
-            ));
+                flex: 20)
+          ],
+        ));
   }
 }

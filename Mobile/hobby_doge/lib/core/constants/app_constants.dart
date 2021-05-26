@@ -4,5 +4,5 @@ class ApplicationConstants {
   static const EMAIL_REGIEX =
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
   static const BORDER_RADIUS = 8.0;
-  static const BASE_URL = "http://192.168.1.35:8080";
+  static const BASE_URL = "http://192.168.1.36:8080";
 }
