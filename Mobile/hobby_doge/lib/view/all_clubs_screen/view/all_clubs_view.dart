@@ -50,8 +50,9 @@ class AllClubsView extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                             onTap: () {
-                              NavigationService.instance
-                                  .navigateToPage(path: "/club_view",object: snapshot.data[index].id);
+                              NavigationService.instance.navigateToPage(
+                                  path: "/club_view",
+                                  object: snapshot.data[index].id);
                             },
                             child: Container(
                                 height: context.height * 0.1,
@@ -66,33 +67,45 @@ class AllClubsView extends StatelessWidget {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(
                                           ApplicationConstants.BORDER_RADIUS)),
-                                  child: Column(
-                                    children: [
-                                      Spacer(
-                                        flex: 3,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                          'https://firebasestorage.googleapis.com/v0/b/hobbydoge.appspot.com/o/Uploads%2F1621670766657_800.jpg?alt=media&token=c7b0e8a5-5c7b-49cb-a37f-fb9d2f6e47c1',
+                                        ),
+                                        fit: BoxFit.cover,
                                       ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: context.width * 0.05),
-                                          child: Row(
-                                            children: [
-                                              AutoSizeText(
-                                                snapshot.data[index].name,
-                                                maxLines: 1,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Colors.white),
-                                              )
-                                            ],
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Spacer(
+                                          flex: 3,
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal:
+                                                    context.width * 0.05),
+                                            child: Row(
+                                              children: [
+                                                AutoSizeText(
+                                                  snapshot.data[index].name,
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Colors.green),
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Spacer(
-                                        flex: 1,
-                                      )
-                                    ],
+                                        Spacer(
+                                          flex: 1,
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 )),
                           );
