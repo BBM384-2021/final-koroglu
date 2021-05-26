@@ -9,7 +9,6 @@ public class ReviewMapper {
             .setId(review.getId())
             .setComment(review.getComment())
             .setRating(review.getRating())
-            .setCreatedAt(review.getCreatedAt())
             .setUsername(review.getUser().getUsername());
 
   }
