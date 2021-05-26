@@ -8,11 +8,17 @@ class ClubViewModel = _ClubViewModelBase with _$ClubViewModel;
 
 abstract class _ClubViewModelBase with Store, BaseViewModel {
   Future club;
+  int clubID;
   @override
   void setContext(BuildContext context) => this.context = context;
 
+  void setID(int id) {
+    print("setter " + id.toString());
+    clubID = id;
+  }
+
   @override
   void init() {
-    club = NetworkService.instance.getClubByID(1);
+    club = NetworkService.instance.getClubByID(clubID);
   }
 }

@@ -12,8 +12,9 @@ import '../../../core/extensions/context_extension.dart';
 import '../../../core/extensions/string_extension.dart';
 
 class ClubView extends StatefulWidget {
-  ClubView({Key key}) : super(key: key);
+  final int clubID;
 
+  ClubView({Key key, this.clubID}) : super(key: key);
   @override
   _ClubViewState createState() => _ClubViewState();
 }
@@ -33,6 +34,7 @@ class _ClubViewState extends State<ClubView>
         viewModel: ClubViewModel(),
         onModelReady: (ClubViewModel model) {
           model.setContext(context);
+          model.setID(widget.clubID);
           model.init();
         },
         onPageBuilder: (BuildContext context, ClubViewModel viewmodel) =>

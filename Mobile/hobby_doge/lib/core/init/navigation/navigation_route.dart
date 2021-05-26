@@ -66,8 +66,11 @@ class NavigationRoute {
         return MaterialPageRoute(builder: (context) => CreateClubView());
       case NavigationConstants.FEED_VIEW:
         return MaterialPageRoute(builder: (context) => FeedView());
-        case NavigationConstants.CLUB_VIEW:
-        return MaterialPageRoute(builder: (context) => ClubView());
+      case NavigationConstants.CLUB_VIEW:
+        return MaterialPageRoute(
+            builder: (context) => ClubView(
+                  clubID: args.arguments,
+                ));
 
       default:
         return MaterialPageRoute(

@@ -39,6 +39,7 @@ class NetworkService {
   }
 
   Future<OneClub> getClubByID(int id) async {
+    print("id " + id.toString());
     var url = Uri.parse(
         ApplicationConstants.BASE_URL + "/api/v1/clubs/" + id.toString());
     print("girer");
