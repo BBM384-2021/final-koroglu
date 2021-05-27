@@ -55,12 +55,18 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
         });
 
     if (response.statusCode == HttpStatus.ok) {
+      print("asjdasd");
+
       LoginResponse responseBody =
           LoginResponse.fromJson(json.decode(response.body));
       prefs.setString("token", responseBody.token);
-
-      NavigationService.instance.navigatorToPageRemoveOld(path: "/home");
+      print(responseBody.username);
+      prefs.setString("username", responseBody.username);
+      NavigationService.instance
+          .navigatorToPageRemoveOld(path: "/all_clubs_view");
     } else {
+      print("asjdasd");
+
       ScaffoldMessenger.of(context).showSnackBar(
           warningSnackBar(LocaleKeys.loginScreen_invalidLogin.locale));
     }

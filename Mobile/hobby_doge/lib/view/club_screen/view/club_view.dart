@@ -113,7 +113,7 @@ class _ClubViewState extends State<ClubView>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(club.reviews.length.toString(),
+                Text(club.reviews.length.toString() + " Reviews",
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: context.height * 0.02)),
@@ -132,29 +132,39 @@ class _ClubViewState extends State<ClubView>
                     ))
               ],
             )),
+        Divider(
+          color: Colors.black,
+        ),
         SingleChildScrollView(
           child: Container(
             height: context.height * 0.25,
-            child: ListView.builder(
-                itemCount: club.reviews.length,
-                itemBuilder: (context, index) {
-                  if (club.reviews.length > 0) {
-                    return ListTile(
-                      contentPadding: EdgeInsets.all(context.height * 0.05),
-                      title: Text(
-                        club.reviews[index].username,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: context.height * 0.025),
-                      ),
-                      subtitle: Text(club.reviews[index].comment),
-                      trailing: Text(
-                          club.reviews[index].rating.toInt().toString() + "/5"),
-                    );
-                  } else {
-                    return Text("ads");
-                  }
-                }),
+            child: MediaQuery.removePadding(
+              context: context,
+              removeTop: true,
+              child: ListView.builder(
+                  itemCount: club.reviews.length,
+                  itemBuilder: (context, index) {
+                    if (club.reviews.length > 0) {
+                      return ListTile(
+                        contentPadding: EdgeInsets.only(
+                            left: context.height * 0.05,
+                            right: context.height * 0.05),
+                        title: Text(
+                          club.reviews[index].username,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: context.height * 0.025),
+                        ),
+                        subtitle: Text(club.reviews[index].comment),
+                        trailing: Text(
+                            club.reviews[index].rating.toInt().toString() +
+                                "/5"),
+                      );
+                    } else {
+                      return Text("ads");
+                    }
+                  }),
+            ),
           ),
         ),
       ],
@@ -190,7 +200,9 @@ class _ClubViewState extends State<ClubView>
                               Icons.add_circle_outline,
                               color: AppColorScheme.instance.greenLight3,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              NetworkService.instance.joinSubClub(club.id);
+                            },
                             label: Text(
                               "Join ",
                               style: TextStyle(
