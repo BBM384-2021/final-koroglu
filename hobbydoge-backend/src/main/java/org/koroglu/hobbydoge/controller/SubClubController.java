@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("api/v1/subclubs")
 @AllArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("api/v1/subclubs")
 public class SubClubController {
 
   private final SubClubService subClubService;

@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -20,5 +22,5 @@ public class SurveyPointDTO {
   private Long id;
   private Long clubId;
   private Integer point;
-  private Date date;
+  private LocalDateTime date;
 }
