@@ -18,4 +18,5 @@ class NavigationConstants {
   static const CREATE_CLUB_VIEW = "/create_club";
   static const FEED_VIEW = "/feed_view";
   static const CLUB_VIEW = "/club_view";
+  static const SUB_CLUB_VIEW = "/sub_club_view";
 }
