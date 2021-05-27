@@ -22,7 +22,7 @@ class SubClub {
     this.reviews,
     this.adminRequests,
   });
-
+  bool isMember;
   int id;
   String name;
   String description;

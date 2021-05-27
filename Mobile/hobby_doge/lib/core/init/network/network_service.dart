@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hobby_doge/core/constants/app_constants.dart';
 import 'package:hobby_doge/view/all_clubs_screen/model/Club.dart';
+import 'package:hobby_doge/view/sub_club_screen/model/Member.dart';
 import 'package:hobby_doge/view/sub_club_screen/model/SubClub.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../view/club_screen/model/OneClub.dart';
@@ -62,6 +63,7 @@ class NetworkService {
   }
 
   Future<SubClub> getSubClubByID(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     print("id " + id.toString());
     var url = Uri.parse(
         ApplicationConstants.BASE_URL + "/api/v1/subclubs/" + id.toString());
@@ -74,7 +76,16 @@ class NetworkService {
     print(json.decode(response.body));
     if (response.statusCode == HttpStatus.ok) {
       SubClub subClub = SubClub.fromJson(json.decode(response.body));
-
+      for (var item in subClub.members) {
+        print(prefs.getString("username"));
+        print(Member.fromJson(item).username);
+        if (prefs.getString("username") == Member.fromJson(item).username) {
+          subClub.isMember = true;
+        }
+      }
+      if (subClub.isMember != true) {
+        subClub.isMember = false;
+      }
       print(subClub.description + " deneme");
       return subClub;
     } else {
@@ -82,7 +93,7 @@ class NetworkService {
     }
   }
 
-  void joinSubClub(int id) async {
+  Future<bool> joinSubClub(int id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     print("id " + id.toString());
@@ -101,5 +112,28 @@ class NetworkService {
           "accept": "application/json",
         });
     print((response.body));
+    return true;
+  }
+
+  Future<bool> leaveSubClub(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    print("id " + id.toString());
+    var url = Uri.parse(ApplicationConstants.BASE_URL +
+        "/api/v1/subclubs/" +
+        id.toString() +
+        "/leave");
+    print(prefs.getString('token'));
+    var response = await http.delete(url,
+        body: jsonEncode(<String, int>{
+          'subClubId ': id,
+        }),
+        headers: {
+          HttpHeaders.authorizationHeader: "Bearer " + prefs.getString('token'),
+          "content-type": "application/json",
+          "accept": "application/json",
+        });
+    print((response.body));
+    return true;
   }
 }

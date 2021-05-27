@@ -15,7 +15,6 @@ import '../../../core/extensions/string_extension.dart';
 
 class SubClubView extends StatefulWidget {
   final int clubID;
-
   SubClubView({Key key, this.clubID}) : super(key: key);
   @override
   _SubClubViewState createState() => _SubClubViewState();
@@ -28,6 +27,7 @@ class _SubClubViewState extends State<SubClubView>
     super.initState();
   }
 
+  bool state = false;
   @override
   Widget build(BuildContext context) {
     return BaseView(
@@ -70,7 +70,71 @@ class _SubClubViewState extends State<SubClubView>
                               ),
 
                               // the tab bar with two items
-                              clubNameTitle(context, snapshot.data),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 15.0),
+                                child: Container(
+                                    height: 100,
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Spacer(
+                                              flex: 1,
+                                            ),
+                                            Expanded(
+                                                child: Text(
+                                                  snapshot.data.name,
+                                                  style: TextStyle(
+                                                      color: Color(0xff26342B),
+                                                      fontSize: context.height *
+                                                          0.04),
+                                                ),
+                                                flex: 20)
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(snapshot.data.members.length
+                                                    .toString() +
+                                                " members"),
+                                            OutlinedButton(
+                                              style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty.all<
+                                                            Color>(
+                                                        AppColorScheme.instance
+                                                            .greenLight3),
+                                              ),
+                                              child: snapshot.data.isMember ==
+                                                      false
+                                                  ? Text("Join",
+                                                      style: TextStyle(
+                                                          color: Colors.white))
+                                                  : Text("Leave",
+                                                      style: TextStyle(
+                                                          color: Colors.white)),
+                                              onPressed: () {
+                                                setState(() {
+                                                  if (snapshot.data.isMember) {
+                                                    NetworkService.instance
+                                                        .leaveSubClub(
+                                                            snapshot.data.id);
+                                                  } else {
+                                                    NetworkService.instance
+                                                        .joinSubClub(
+                                                            snapshot.data.id);
+                                                  }
+                                                  state = !state;
+                                                });
+                                              },
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    )),
+                              ),
 
                               // create widgets for each tab bar here
                               Expanded(
@@ -160,55 +224,12 @@ class _SubClubViewState extends State<SubClubView>
                           club.reviews[index].rating.toInt().toString() + "/5"),
                     );
                   } else {
-                    return Text("ads");
+                    return Text("No Review");
                   }
                 }),
           ),
         ),
       ],
-    );
-  }
-
-  Padding clubNameTitle(BuildContext context, SubClub club) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 15.0),
-      child: Container(
-          height: 100,
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Spacer(
-                    flex: 1,
-                  ),
-                  Expanded(
-                      child: Text(
-                        club.name,
-                        style: TextStyle(
-                            color: Color(0xff26342B),
-                            fontSize: context.height * 0.04),
-                      ),
-                      flex: 20)
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(club.members.length.toString() + " members"),
-                  OutlinedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          AppColorScheme.instance.greenLight3),
-                    ),
-                    child: Text("Join", style: TextStyle(color: Colors.white)),
-                    onPressed: () {
-                      NetworkService.instance.joinSubClub(club.id);
-                    },
-                  )
-                ],
-              )
-            ],
-          )),
     );
   }
 }
