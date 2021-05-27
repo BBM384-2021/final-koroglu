@@ -19,6 +19,6 @@ abstract class _SubClubViewModelBase with Store, BaseViewModel {
 
   @override
   void init() {
-    club = NetworkService.instance.getSubClubByID(1);
+    club = NetworkService.instance.getSubClubByID(clubID);
   }
 }

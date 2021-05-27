@@ -34,7 +34,7 @@ class _SubClubViewState extends State<SubClubView>
         viewModel: SubClubViewModel(),
         onModelReady: (SubClubViewModel model) {
           model.setContext(context);
-          model.setID(1);
+          model.setID(widget.clubID);
           model.init();
         },
         onPageBuilder: (BuildContext context, SubClubViewModel viewmodel) =>

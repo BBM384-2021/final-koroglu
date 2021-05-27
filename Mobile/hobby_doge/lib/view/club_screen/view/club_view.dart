@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hobby_doge/core/base/view/base_view.dart';
 import 'package:hobby_doge/core/components/app_bar_with_back_leading.dart';
 import 'package:hobby_doge/core/init/lang/locale_keys.g.dart';
+import 'package:hobby_doge/core/init/navigation/navigation_service.dart';
 import 'package:hobby_doge/core/init/network/network_service.dart';
 import 'package:hobby_doge/core/init/theme/color_scheme.dart';
 import 'package:hobby_doge/view/club_screen/model/OneClub.dart';
@@ -13,7 +14,7 @@ import '../../../core/extensions/string_extension.dart';
 
 class ClubView extends StatefulWidget {
   final int clubID;
-  
+
   ClubView({Key key, this.clubID}) : super(key: key);
   @override
   _ClubViewState createState() => _ClubViewState();
@@ -34,6 +35,7 @@ class _ClubViewState extends State<ClubView>
         viewModel: ClubViewModel(),
         onModelReady: (ClubViewModel model) {
           model.setContext(context);
+          model.setID(widget.clubID);
           model.init();
         },
         onPageBuilder: (BuildContext context, ClubViewModel viewmodel) =>
@@ -136,22 +138,18 @@ class _ClubViewState extends State<ClubView>
             child: ListView.builder(
                 itemCount: club.reviews.length,
                 itemBuilder: (context, index) {
-                  if (club.subClubs.length > 0) {
+                  if (club.reviews.length > 0) {
                     return ListTile(
-                      title: Text(club.reviews[index].username),
-                      trailing: TextButton.icon(
-                          icon: Icon(
-                            Icons.add_circle_outline,
-                            color: AppColorScheme.instance.greenLight3,
-                          ),
-                          onPressed: () {},
-                          label: Text(
-                            "Join ",
-                            style: TextStyle(
-                                color: AppColorScheme.instance.greenLight3,
-                                fontSize: context.height * 0.02,
-                                fontWeight: FontWeight.w500),
-                          )),
+                      contentPadding: EdgeInsets.all(context.height * 0.05),
+                      title: Text(
+                        club.reviews[index].username,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: context.height * 0.025),
+                      ),
+                      subtitle: Text(club.reviews[index].comment),
+                      trailing: Text(
+                          club.reviews[index].rating.toInt().toString() + "/5"),
                     );
                   } else {
                     return Text("ads");
@@ -176,6 +174,11 @@ class _ClubViewState extends State<ClubView>
                     if (club.subClubs.length > 0) {
                       print(club.subClubs[index]);
                       return ListTile(
+                        onTap: () {
+                          NavigationService.instance.navigateToPage(
+                              path: "/sub_club_view",
+                              object: club.subClubs[index].id);
+                        },
                         title: Text(club.subClubs[index].name),
                         leading: CircleAvatar(
                           backgroundImage: NetworkImage(
