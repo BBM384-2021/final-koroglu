@@ -52,11 +52,9 @@ public class SurveyServiceImpl implements SurveyService {
     public List<SurveyQuestionDTO> createSurvey(AddSurveyRequest addSurveyRequest) {
 
         List<SurveyQuestionDTO> response= new ArrayList<>();
-        Optional<Club> optionalClub=clubRepository.findById(addSurveyRequest.getClubId());
-        if(!optionalClub.isPresent()){
-            throw new RestClubDoesNotExistException();
-        }
-        if (surveyQuestionRepository.findSurveyQuestionsByClub_Id(optionalClub.get().getId()).size()!=0){
+        Club club =clubRepository.findById(addSurveyRequest.getClubId()).orElseThrow(RestClubDoesNotExistException::new);
+
+        if (surveyQuestionRepository.findSurveyQuestionsByClub_Id(club.getId()).size() > 0){
             throw new RestClubSurveyAlreadyExistException();
         }
         for (QuestionRequest questionRequest :addSurveyRequest.getQuestionRequests()
@@ -64,7 +62,7 @@ public class SurveyServiceImpl implements SurveyService {
             SurveyQuestion surveyQuestion = new SurveyQuestion(
                     questionRequest.getQuestion(),
                     questionRequest.isIncrease(),
-                    optionalClub.get()
+                    club
             );
             surveyQuestionRepository.save(surveyQuestion);
             response.add(SurveyQuestionMapper.toSurveyQuestionDTO(surveyQuestion));
@@ -77,17 +75,15 @@ public class SurveyServiceImpl implements SurveyService {
     public List<SurveyQuestionDTO> updateSurvey(AddSurveyRequest addSurveyRequest) {
 
         List<SurveyQuestionDTO> response= new ArrayList<>();
-        Optional<Club> optionalClub=clubRepository.findById(addSurveyRequest.getClubId());
-        if(!optionalClub.isPresent()){
-            throw new RestClubDoesNotExistException();
-        }
-        surveyQuestionRepository.deleteAllByClub_Id(optionalClub.get().getId());
+      Club club =clubRepository.findById(addSurveyRequest.getClubId()).orElseThrow(RestClubDoesNotExistException::new);
+
+      surveyQuestionRepository.deleteAllByClub_Id(club.getId());
         for (QuestionRequest questionRequest :addSurveyRequest.getQuestionRequests()
         ) {
             SurveyQuestion surveyQuestion = new SurveyQuestion(
                     questionRequest.getQuestion(),
                     questionRequest.isIncrease(),
-                    optionalClub.get()
+                    club
             );
             surveyQuestionRepository.save(surveyQuestion);
             response.add(SurveyQuestionMapper.toSurveyQuestionDTO(surveyQuestion));
@@ -100,11 +96,9 @@ public class SurveyServiceImpl implements SurveyService {
     public SurveyPointDTO answerSurvey(NewSurveyAnswerRequest newSurveyAnswerRequest) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         SurveyPointDTO response= new SurveyPointDTO();
-        Optional<Club> optionalClub=clubRepository.findById(newSurveyAnswerRequest.getClubId());
-        if(!optionalClub.isPresent()){
-            throw new RestClubDoesNotExistException();
-        }
-        response.setPoint(0);
+      Club club =clubRepository.findById(newSurveyAnswerRequest.getClubId()).orElseThrow(RestClubDoesNotExistException::new);
+
+      response.setPoint(0);
         for (AnswerRequest answerRequest : newSurveyAnswerRequest.getAnswers()
         ) {
             Optional<SurveyQuestion> optionalSurveyQuestion=surveyQuestionRepository.findById(answerRequest.getQuestionId());
@@ -118,13 +112,13 @@ public class SurveyServiceImpl implements SurveyService {
                             );
         }
         response.setPoint(
-                surveyQuestionRepository.countSurveyQuestionsByClub_Id(optionalClub.get().getId())
+                surveyQuestionRepository.countSurveyQuestionsByClub_Id(club.getId())
                         *10
                         /response.getPoint()
                         *100);
         SurveyPoint surveyPoint = new SurveyPoint(
                 response.getPoint(),
-                optionalClub.get(),
+                club,
                 user);
         surveyPointRepository.save(surveyPoint);
 
@@ -135,11 +129,9 @@ public class SurveyServiceImpl implements SurveyService {
     @Override
     public SurveyPointDTO getSurveyPoint(Long clubId) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<Club> optionalClub=clubRepository.findById(clubId);
-        if(!optionalClub.isPresent()){
-            throw new RestClubDoesNotExistException();
-        }
-        Optional<SurveyPoint> optionalSurveyPoint=surveyPointRepository.getSurveyPointByClubAndUser(optionalClub.get(),user);
+      Club club =clubRepository.findById(clubId).orElseThrow(RestClubDoesNotExistException::new);
+
+      Optional<SurveyPoint> optionalSurveyPoint=surveyPointRepository.getSurveyPointByClubAndUser(club,user);
         if(!optionalSurveyPoint.isPresent()){
             throw new RestSurveyPointDoesNotExistException();
         }

@@ -14,7 +14,6 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class QuestionRequest {
 
-    @Size(min = 15, message = "Question should not be less than 15 characters.")
     @NotNull(message = "Question cannot be empty.")
     private String question;
 

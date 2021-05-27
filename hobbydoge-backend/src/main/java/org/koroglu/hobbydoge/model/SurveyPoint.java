@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -27,7 +28,7 @@ public class SurveyPoint {
     @Id
     private Long id;
     private Integer point;
-    private Date date;
+    private LocalDateTime date;
 
     @ManyToOne
     private Club club;
@@ -39,6 +40,6 @@ public class SurveyPoint {
         this.point = point;
         this.user = user;
         this.club = club;
-        this.date = new Date();
+        this.date = LocalDateTime.now();
     }
 }
